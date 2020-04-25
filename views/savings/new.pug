@@ -1,0 +1,20 @@
+extends /layouts/layout
+
+block content 
+    .create-new-saving-container
+        h1.form-label New Saving 
+        form(action='POST' class='create-saving' autocomplete="off")
+            .info
+                label(for="name" class='info-label') Name of your saving
+                input(placeholder='Name' name='name'  class='form-control name-input' type='text' required)
+                label.private-container Private
+                    input(type='checkbox' class='checkbox' )
+                    span.private-checkmark
+                button(type='submit' class='create-saving-button btn btn-outline-success') Create
+            .file-input-background
+                .file-input
+                    input(class='file', hidden type='file', name='files[]' id='file' data-muiltiply-captio='{count} files selected' multiple)
+                    label(for='file')
+                        strong.choose Choose file 
+                        span(class='dragndrop') or drag it here
+                

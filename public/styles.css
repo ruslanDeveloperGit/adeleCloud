@@ -1,0 +1,149 @@
+.search-input {
+    margin: 10px 0;
+}
+
+.create-new-button {
+    margin-left: 10px;
+}
+
+.form-inline {
+    float: right;
+}
+.choose{
+    cursor: pointer;
+}
+.navbar-brand {
+    font-size: xx-large;
+    width: 0px;
+}
+
+.create-new-saving-container{
+    margin-top: 50px;
+}
+.create-saving {
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    background-color: rgb(221, 217, 217);
+    width: 80%;
+    margin: auto;
+}
+
+.form-label {
+    color: rgb(48, 206, 48);
+    text-align: center;
+    line-height: 30px;
+    padding-bottom: 10px;
+}
+.info {
+    width: 50%;
+}
+
+.info-label {
+    font-size: 20px;
+    
+}
+
+/* The container */
+.private-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .private-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .private-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .private-container:hover input ~ .private-checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .private-container input:checked ~ .private-checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .private-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .private-container input:checked ~ .private-checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .private-container .private-checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+.name-input {
+    margin-left: 25px;
+    margin-bottom: 20px;
+    width: 80%;
+}
+
+.file-input-background {
+    border-radius: 30px;
+    height: 300px;
+    width: 50%;
+    background-color: rgb(170, 169, 169);
+}
+.file-input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    width: 95%;
+    height: 90%;
+    border-radius: 20px;
+    border-style: dashed;
+    border-color: rgb(207, 207, 207);
+    border-width: 3px;
+}
+
+.create-saving-button {
+    width: 30%;
+    margin-bottom: -50%;
+}
