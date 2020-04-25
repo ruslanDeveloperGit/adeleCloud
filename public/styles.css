@@ -159,6 +159,8 @@ body{
 
 .create-saving-button {
   position: relative;
-    width: 30%;
-    margin-bottom: -55%;
+  width: 30%;
+  /* margin-bottom: -55%; */
+  top: 50%;
+  transform: translateY(-60%);
 }
