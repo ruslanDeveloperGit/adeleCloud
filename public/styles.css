@@ -1,3 +1,8 @@
+body{
+  height: 100vh;
+  width: 100%;
+}
+
 .search-input {
     margin: 10px 0;
 }
@@ -18,15 +23,24 @@
 }
 
 .create-new-saving-container{
-    margin-top: 50px;
+  height: 60%;
+  margin-top: 50px;
 }
+
 .create-saving {
-    border-radius: 15px;
-    padding: 20px;
-    display: flex;
-    background-color: rgb(221, 217, 217);
-    width: 80%;
-    margin: auto;
+  height: 100%;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  background-color: rgb(221, 217, 217);
+  width: 80%;
+  margin: auto;
+}
+
+.create-saving::after{
+  content: '';
+  display: block;
+  clear: both;
 }
 
 .form-label {
@@ -41,7 +55,6 @@
 
 .info-label {
     font-size: 20px;
-    
 }
 
 /* The container */
@@ -119,10 +132,11 @@
 }
 
 .file-input-background {
-    border-radius: 30px;
-    height: 300px;
-    width: 50%;
-    background-color: rgb(170, 169, 169);
+  
+  border-radius: 30px;
+  /* height: 300px; */
+  width: 50%;
+  background-color: rgb(170, 169, 169);
 }
 .file-input{
     display: flex;
@@ -144,6 +158,7 @@
 }
 
 .create-saving-button {
+  position: relative;
     width: 30%;
-    margin-bottom: -50%;
+    margin-bottom: -55%;
 }
