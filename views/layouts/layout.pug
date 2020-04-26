@@ -2,11 +2,20 @@
 html(lang="en")
     head
         meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        //- meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
         link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous")
-        link(rel='stylesheet' href='/styles.css')
+        link(rel='stylesheet' href='/styles/styles.css')
+        link(href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet")
+        link(rel="stylesheet", href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css")
+        script(defer src="https://unpkg.com/filepond/dist/filepond.js")
+        script(defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js")
+        script(defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js")
+        script(src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js" defer)
+        script(defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js")
+        script(defer src="/javascripts/fileUpload.js")
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
         title AdeleCloud
     body
         include /partials/header.pug
-        block content 
-        
+        block content

@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 
 const savingsRouter = require('./routes/savings');
 
@@ -15,6 +16,8 @@ app.set('view engine', 'pug');
 app.set('view options', { basedir: __dirname})
 app.locals.basedir = path.join(__dirname, 'views')
 app.use(express.static(path.join(__dirname + '/public')))
+app.use(bodyParser.json({limit: '10mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 
 mongoose.connect(process.env.DB_URL, { 
     useNewUrlParser: true,

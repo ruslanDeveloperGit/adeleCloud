@@ -16,7 +16,7 @@ router.get('/new', (req, res) => {
 
 // create new saving 
 router.post('/', (req, res) => {
-    res.send('Created.')
+    console.log(req.body)
 })
 
 module.exports = router;
