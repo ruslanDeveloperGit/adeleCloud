@@ -12,10 +12,12 @@ const pond = document.querySelector('.filepond--root');
 let allFilesSize = 0;
 
 pond.addEventListener('FilePond:addfile', (e) => {
-    let fileSize =  e.detail.file.fileSize;
-    fileSize =  fileSize / Math.pow(10, 6);
-    fileSize =  fileSize.toFixed(3);
+    let fileSize = e.detail.file.fileSize;
+    fileSize = Number(fileSize)
+    fileSize = Number(fileSize) / Math.pow(10, 6);
     allFilesSize += Number(fileSize);
+    allFilesSize = Number(allFilesSize.toFixed(2))
+    console.log(fileSize, allFilesSize)
     if (allFilesSize > 12) {
         $("#file-size").removeClass('file-size-green').addClass('file-size-orange')
     }
@@ -27,9 +29,9 @@ pond.addEventListener('FilePond:addfile', (e) => {
 })
 pond.addEventListener('FilePond:removefile', (e) => {
     let fileSize = Number(e.detail.file.fileSize);
-    fileSize = fileSize / Math.pow(10, 6);
-    fileSize = Number(fileSize.toFixed(3))
-    allFilesSize = allFilesSize - fileSize
+    fileSize = Number(fileSize) / Math.pow(10, 6);
+    allFilesSize = allFilesSize - Number(fileSize)
+    allFilesSize = Number(allFilesSize.toFixed(3))
     if (allFilesSize < 20) {
         $('.create-saving-button').removeClass('btn-outline-danger')
         $('.create-saving-button').removeClass('disabled').addClass("btn-outline-success")
