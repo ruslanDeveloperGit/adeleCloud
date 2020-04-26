@@ -53,8 +53,8 @@ router.post('/login', async( req, res) => {
             expiresIn: '1h'
         }  
     )
-    res.cookie('refreshToken', refreshToken, {httpOnly:true,})
-    res.cookie('accessToken', token, {httpOnly: true})
+    res.cookie('refreshToken', refreshToken, {httpOnly: true, signed: true,  })
+    res.cookie('accessToken', token, {httpOnly: true, signed: true, })
     return res.redirect('/savings')
 
 })
@@ -66,7 +66,8 @@ router.get('/register', async(req, res) => {
 
 router.post('/register', async(req, res) => {
     const { userMail, userPassword } = req.body;
-    const hashedPassword = await bcrypt.hash(userPassword, 16);
+    const salt = await bcrypt.genSalt(12)
+    const hashedPassword = await bcrypt.hash(userPassword, salt);
 
     let existingUser = await User.findOne({email : userMail});
     if (existingUser){
@@ -97,15 +98,15 @@ router.post('/register', async(req, res) => {
     const refreshToken = jwt.sign(
         {
             email: userMail,
-            password
+            password: hashedPassword
         },
         process.env.REFRESH_TOKEN,
         {
             expiresIn: '1h'
         }  
     )
-    res.cookie('refreshToken', refreshToken, {httpOnly:true,})
-    res.cookie('accessToken', token, {httpOnly: true})
+    res.cookie('refreshToken', refreshToken, {httpOnly: true,signed:true })
+    res.cookie('accessToken', token, {httpOnly:true, signed:true })
     return res.redirect('/savings')
 
 })

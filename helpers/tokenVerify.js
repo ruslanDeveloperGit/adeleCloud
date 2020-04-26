@@ -1,19 +1,20 @@
 const jwt = require('jsonwebtoken')
 
 module.exports.verifyToken = (req, res, next) =>{
-    if (!req.cookies) {
+    
+    if (!req.signedCookies) {
         return res.redirect('/auth/login')
     }
-    let accessToken = req.cookies['accessToken']
-    let refreshToken = req.cookies['refreshToken']
+    let accessToken = req.signedCookies['accessToken']
+    let refreshToken = req.signedCookies['refreshToken']
     jwt.verify(accessToken, process.env.ACCESS_TOKEN, (err, accessTokenDecoded) => {
-        console.log(accessTokenDecoded)
         if (!accessTokenDecoded) {
             jwt.verify(refreshToken, process.env.REFRESH_TOKEN, (err, refreshTokenDecoded) => {
-                console.log(refreshTokenDecoded)
                 if(!refreshTokenDecoded){
                     res.clearCookie('refreshToken').clearCookie('accessToken')
-                    return res.redirect('/auth/login')
+                    res.locals.ejected = true
+                    res.redirect('/auth/login')
+                    return next()
                 }
                 res.clearCookie('refreshToken').clearCookie('accessToken')
                 const { email, password } = refreshTokenDecoded;
@@ -37,9 +38,9 @@ module.exports.verifyToken = (req, res, next) =>{
                         expiresIn: '1h'
                     }
                 )
-                res.cookie('accessToken', newAccessToken, { httpOnly: true })
-                res.cookie('refreshToken', newRefreshToken, { httpOnly: true });
-                next()
+                res.cookie('accessToken', newAccessToken, {httpOnly: true, signed: true, })
+                res.cookie('refreshToken', newRefreshToken, {httpOnly: true, signed: true, });
+
             })
         }
     })

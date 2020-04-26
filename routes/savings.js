@@ -6,10 +6,13 @@ const Saving = require('../models/SavingModel')
 const File = require('../models/FileSchema')
 // all user savings 
 router.get('/', async (req, res) => {
+    if(res.locals.ejected){ // local for check if user ejected
+        return
+    }
     try{
         res.render('savings/index')
     } catch (e) {
-
+        console.log(e)
     }
 })
 

@@ -7,8 +7,8 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
+const session = require('express-session')
 const { verifyToken } = require('./helpers/tokenVerify')
 
 const savingsRouter = require('./routes/savings');
@@ -21,8 +21,7 @@ app.locals.basedir = path.join(__dirname, 'views')
 app.use(express.static(path.join(__dirname + '/public')))
 app.use(bodyParser.json({limit: '20mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '20mb', extended: true}))
-app.use(cookieParser())
-
+app.use(cookieParser(process.env.COOKIE_SECRET))
 
 mongoose.connect(process.env.DB_URL, { 
     useNewUrlParser: true,
