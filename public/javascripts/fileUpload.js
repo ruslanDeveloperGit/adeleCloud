@@ -16,7 +16,7 @@ pond.addEventListener('FilePond:addfile', (e) => {
     fileSize = Number(fileSize)
     fileSize = Number(fileSize) / Math.pow(10, 6);
     allFilesSize += Number(fileSize);
-    allFilesSize = Number(allFilesSize.toFixed(2))
+    allFilesSize = Number(allFilesSize.toFixed(3))
     console.log(fileSize, allFilesSize)
     if (allFilesSize > 12) {
         $("#file-size").removeClass('file-size-green').addClass('file-size-orange')
@@ -32,6 +32,9 @@ pond.addEventListener('FilePond:removefile', (e) => {
     fileSize = Number(fileSize) / Math.pow(10, 6);
     allFilesSize = allFilesSize - Number(fileSize)
     allFilesSize = Number(allFilesSize.toFixed(3))
+    if ( allFilesSize < 0) {
+        allFilesSize = 0
+    }
     if (allFilesSize < 20) {
         $('.create-saving-button').removeClass('btn-outline-danger')
         $('.create-saving-button').removeClass('disabled').addClass("btn-outline-success")

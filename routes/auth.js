@@ -1,0 +1,113 @@
+const { Router } = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
+const router = Router()
+
+const User = require('../models/UserModel')
+
+
+// auth page
+router.get('/login', async(req, res) => {
+    res.render('auth/login')
+})
+
+router.post('/login', async( req, res) => {
+    const { userMail, userPassword } = req.body;
+
+    let user = await User.findOne({
+        email: userMail,
+    })
+    if(!user){
+        return res.render('auth/login', {
+            error: {
+                message: 'User e-mail is not corrent.'
+            }
+        })
+    }
+    const { password } = user;
+    let validPass = await bcrypt.compare(userPassword, password)
+    if(!validPass){
+        return res.render('auth/login', {
+            error: {
+                message: 'The password is not correct.'
+            }
+        })
+    } 
+    const token = jwt.sign(
+        {
+            email: userMail,
+            password: password
+        },
+        process.env.ACCESS_TOKEN,
+        {
+            expiresIn: 60 * 30
+        }
+    )
+    const refreshToken = jwt.sign(
+        {
+            email: userMail,
+            password
+        },
+        process.env.REFRESH_TOKEN,
+        {
+            expiresIn: '1h'
+        }  
+    )
+    res.cookie('refreshToken', refreshToken, {httpOnly:true,})
+    res.cookie('accessToken', token, {httpOnly: true})
+    return res.redirect('/savings')
+
+})
+
+// register page
+router.get('/register', async(req, res) => {
+    res.render('auth/register')
+})
+
+router.post('/register', async(req, res) => {
+    const { userMail, userPassword } = req.body;
+    const hashedPassword = await bcrypt.hash(userPassword, 16);
+
+    let existingUser = await User.findOne({email : userMail});
+    if (existingUser){
+        return res.render('auth/register', {
+            error: {
+                message: 'User with this email already exists.'
+            }
+        })
+    }
+
+    let newUser = new User({
+        email: userMail,
+        password: hashedPassword
+    })
+    
+    await newUser.save()
+
+    const token = jwt.sign(
+        {
+            email: userMail,
+            password: userPassword
+        },
+        process.env.ACCESS_TOKEN,
+        {
+            expiresIn: 60 * 30
+        }
+    )
+    const refreshToken = jwt.sign(
+        {
+            email: userMail,
+            password
+        },
+        process.env.REFRESH_TOKEN,
+        {
+            expiresIn: '1h'
+        }  
+    )
+    res.cookie('refreshToken', refreshToken, {httpOnly:true,})
+    res.cookie('accessToken', token, {httpOnly: true})
+    return res.redirect('/savings')
+
+})
+
+module.exports = router;

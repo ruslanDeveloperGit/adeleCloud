@@ -4,11 +4,13 @@ body{
   min-width: 1024px !important; 
 
 }
-
-.search-input {
-    margin: 10px 0;
+.navbar {
+  background-color: rgb(235, 160, 21);
 }
 
+.search-input{
+  max-width: 200px;
+}
 .create-new-button {
     margin-left: 10px;
 }

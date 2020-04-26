@@ -1,0 +1,10 @@
+extends /layouts/layout
+
+block content
+    if error
+        h1 #{error.message}
+    form(action='/auth/login' method='POST')
+        input(name='userMail' type='text' required)
+        input(name='userPassword' type='password' required)
+        button(type='submit')
+    a(href='/auth/register') register
