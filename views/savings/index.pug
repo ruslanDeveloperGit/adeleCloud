@@ -1,4 +1,34 @@
 extends /layouts/layout
 
 block content
-    
+    div(class='wrapper')
+        div(class='userInfo')
+            a(class='streched-link userLink'  href='/savings/new')        
+                div(class='userInfoItem userName') #{user.userName}
+            div(class='userInfoItem userTotalSavins') Created 
+                span(class='savingsAmount') #{user.totalSavings}  
+                | savings
+            div(class='userInfoItem userTotalSize')  Used 
+                span(class='usedAmount') #{(user.totalDocumentsSize / Math.pow(10, 6)).toFixed(3)} 
+                | of 20MB
+        div(class='savingsWrapper')
+            each saving in savings
+                div(class='saving')
+                    div(class='infoBar d-flex justify-content-between')
+                        a(class='savingName' href='') #{saving.name}
+                        div(class='infoButton')
+                    a(class='streched-link' href='#')
+                        div(class='filesPreview')
+                            div(class='firstFilePreview')
+                                if saving.files[0].docName.length > 30
+                                    div(class='firstFileName') #{saving.files[0].docName.slice(0, 30).trim()}...
+                                else
+                                    div(class='firstFileName') #{saving.files[0].docName}
+                                div(class='firstFileSize') #{(saving.files[0].docSize / Math.pow(10, 6)).toFixed(3)} MB
+                            if saving.files.length > 1
+                                div(class='firstFilePreview')
+                                    if saving.files[0].docName.length > 30
+                                        div(class='firstFileName') #{saving.files[1].docName.slice(0, 30).trim()}...
+                                    else
+                                        div(class='firstFileName') #{saving.files[1].docName}
+                                    div(class='firstFileSize') #{(saving.files[1].docSize / Math.pow(10, 6)).toFixed(3)} MB

@@ -1,11 +1,11 @@
 body{
   min-height: 600px !important;
   height: 100vh;
-  min-width: 1024px !important; 
+  min-width: 1000px !important; 
 
 }
 .navbar {
-  background-color: rgb(235, 160, 21);
+  background-color: rgb(246, 176, 45);
 }
 
 .search-input{
@@ -22,8 +22,9 @@ body{
     cursor: pointer;
 }
 .navbar-brand {
-    font-size: xx-large;
-    width: 0px;
+  cursor: pointer;
+  font-size: xx-large;
+  width: 0px;
 }
 
 .create-new-saving-container{

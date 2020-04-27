@@ -1,0 +1,137 @@
+.wrapper {
+    display: flex;
+    min-width: 1024px !important;
+    width: 95vw;
+    height: 100vh;
+}
+.savingsWrapper {
+
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    min-width: 600px !important;
+    width: 70%;
+    margin-right: 100px;
+    margin: auto;
+    margin-top: 50px;
+    gap: 30px;
+}
+.saving {
+    margin-top: 20px;
+    position: relative;
+    margin-right: 20px;
+    height: 200px;
+    min-width: 400px;
+    max-width: 500px;
+    border: solid;
+    border-width: 1px;
+    border-color: rgb(189, 188, 188);
+    border-radius: 12px;
+}
+.saving:hover{
+    opacity: 1;
+    box-shadow: rgb(170, 170, 170) 0.8px 0.8px;
+}
+.savingName {
+    color: white;
+    font-size: large;
+    text-decoration: none;
+}
+.savingName:hover{
+    text-decoration: none;
+    color: white;
+    /* color: rgb(177, 177, 177) */
+}
+.infoBar{
+    color: white;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-color:rgb(248, 183, 62);
+    display: none;
+    padding:  10px;
+    width: 100%;
+    min-height: 5%;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(189, 188, 188) ;
+
+}
+.infoButton {
+    background-color: white;
+    border-radius: 10px;
+    display: inline-block;
+    background-image: url('../icons/info.png');
+    height: 16px;
+    width: 16px;
+}
+.infoButton:hover {
+    background-color: rgb(219, 219, 219);
+}
+.firstFilePreview {
+    border-radius: 10px;
+    font-size: large;
+    width: 90%;
+    height: 50px;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: rgb(153, 153, 153);
+    margin: auto;
+    margin-top: 10px;
+}
+.firstFilePreview:hover {
+    position: relative;
+    background-color: rgb(228, 228, 228);
+}
+
+.firstFileName {
+    color: rgb(255, 111, 98);
+    display: inline-block;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.firstFileSize {
+    color: rgb(78, 174, 253);
+    padding-top: 5px;
+    padding-right: 5px;
+    font-size: small;
+    float: right
+}
+.userInfo {
+    height: 200px;
+    min-width: 200px;
+    width: 20%;
+    font-size: large;
+    background-color: rgb(245, 245, 245);
+    border-bottom-right-radius: 30px;
+}
+
+.userInfoItem {
+    color: rgb(71, 187, 255);
+    padding-top: 10px;
+    padding-bottom: 10px;;
+    text-align:  center;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(199, 199, 199);
+    border-bottom-width: 1px;
+
+}
+.userInfoItem:hover {
+    background-color: rgb(211, 211, 211);
+}
+.userName{
+    font-size: x-large;
+    color: rgb(255, 159, 159)
+}
+.userLink {
+    font-weight: 300;
+    text-decoration: none
+}
+.userLink:hover {
+    /* color: black; */
+    text-decoration: none;
+}
+.savingsAmount,
+.usedAmount 
+{
+    font-weight: 500;
+    color: rgb(89, 238, 89);
+}

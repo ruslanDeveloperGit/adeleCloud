@@ -36,7 +36,6 @@ router.post('/login', async( req, res) => {
     const token = jwt.sign(
         {
             email: userMail,
-            password: password
         },
         process.env.ACCESS_TOKEN,
         {
@@ -46,15 +45,14 @@ router.post('/login', async( req, res) => {
     const refreshToken = jwt.sign(
         {
             email: userMail,
-            password
         },
         process.env.REFRESH_TOKEN,
         {
             expiresIn: '1h'
         }  
     )
-    res.cookie('refreshToken', refreshToken, {httpOnly: true, signed: true,  })
-    res.cookie('accessToken', token, {httpOnly: true, signed: true, })
+    res.cookie('refreshToken', refreshToken, {httpOnly: true, signed: true,   })
+    res.cookie('accessToken', token, {httpOnly: true, signed: true,  })
     return res.redirect('/savings')
 
 })
@@ -88,7 +86,6 @@ router.post('/register', async(req, res) => {
     const token = jwt.sign(
         {
             email: userMail,
-            password: userPassword
         },
         process.env.ACCESS_TOKEN,
         {
@@ -97,16 +94,15 @@ router.post('/register', async(req, res) => {
     )
     const refreshToken = jwt.sign(
         {
-            email: userMail,
-            password: hashedPassword
+            email: userMail
         },
         process.env.REFRESH_TOKEN,
         {
             expiresIn: '1h'
         }  
     )
-    res.cookie('refreshToken', refreshToken, {httpOnly: true,signed:true })
-    res.cookie('accessToken', token, {httpOnly:true, signed:true })
+    res.cookie('refreshToken', refreshToken, {httpOnly: true,signed:true, })
+    res.cookie('accessToken', token, {httpOnly:true, signed:true, })
     return res.redirect('/savings')
 
 })

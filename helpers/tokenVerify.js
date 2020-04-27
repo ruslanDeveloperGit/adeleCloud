@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 module.exports.verifyToken = (req, res, next) =>{
     
     if (!req.signedCookies) {
+        req.local.ejected = true;
         return res.redirect('/auth/login')
     }
     let accessToken = req.signedCookies['accessToken']
@@ -21,7 +22,6 @@ module.exports.verifyToken = (req, res, next) =>{
                 const newAccessToken = jwt.sign(
                     {
                         email,
-                        password
                     },
                     process.env.ACCESS_TOKEN,
                     {
@@ -31,7 +31,6 @@ module.exports.verifyToken = (req, res, next) =>{
                 const newRefreshToken = jwt.sign(
                     {
                         email,
-                        password
                     },
                     process.env.REFRESH_TOKEN,
                     {

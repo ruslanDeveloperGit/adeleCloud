@@ -24,17 +24,29 @@ const SavingSchema = new Schema({
         required: true,
         maxlength: 30,
     },
-    // owner: {
-    //     type: String,
-    //     required: true,
-    // },
+    owner: {
+        required: true,
+        type: String,
+        required: true,
+    },
     files: [ FileSchema ],
+    filesAmount:{
+        type:Number,
+        required: true,
+        default: 0
+    },
     private: {
         type: Boolean,
     },
     createDate: {
+        required: true,
         type: Date,
         default: Date.now()
+    },
+    stringCreateDate: {
+        required: true,
+        type: String,
     }
+    
 });
 module.exports = model('Saving', SavingSchema);
