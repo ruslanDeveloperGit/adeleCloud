@@ -29,6 +29,10 @@ const SavingSchema = new Schema({
         type: String,
         required: true,
     },
+    filesTotalSize: {
+        type: Number,
+        default: 0
+    },
     files: [ FileSchema ],
     filesAmount:{
         type:Number,

@@ -1,0 +1,109 @@
+.savingWrapper{
+    display: block;
+    width: 100%;
+    min-width: 1000px !important;
+}
+/* info bar  */
+.savingInfoBar {
+    display: flex;
+    color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(200, 200, 200);
+    width: 100%;
+    min-width: 1000px !important;
+    height: 8%;
+    min-height: 80px;
+}
+.name {
+    height: 50px;
+    padding: 10px 20px;
+    /* padding-bottom: 5px; */
+    font-size: xx-large;
+    color: black
+}
+
+.involvedUsers {
+    padding-left: 25px;
+    color: rgb(143, 143, 143)
+}
+.savingSize {
+    font-size: 15px;
+    color: rgb(200, 200, 200);
+    width: 100px;
+    float: right;
+}
+.date {
+    color: rgb(71, 187, 255);
+    text-align: right;
+    font-size: x-large;
+    margin: 10px 20px;
+    margin-bottom: 5px;
+    float: right;
+    width: 100px;
+}
+.dataInfo {
+    
+    float: right;
+    width: 50%;
+}
+.primaryInfo {
+    
+    width: 50%;
+}
+
+
+/* files previews  */
+.savingFiles {
+    margin-top: 25px
+}
+
+.fileLink {
+    vertical-align: bottom;
+    color: rgb(97, 97, 97);
+    display:  flex;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(200,200,200);
+    border-radius: 10px;
+    position: relative;
+    min-width: 900px;
+    width: 90%;
+    height: 55px;
+    min-height: 55px;
+    margin: auto;
+    margin-bottom: 15px;
+}
+.fileLink:hover {
+    
+    box-shadow: rgb(143, 143, 143) 0.5px 0.5px;
+    text-decoration: none;
+    color:rgb(160, 160, 160)
+}
+.docSize {
+    margin-right: 10px;
+    margin-left: auto;
+    float: right;
+    min-width: 100px;
+    width: 100px;
+    text-align: right;
+    font-size: 20px;
+    padding-top: 10px;
+    color: rgb(71, 187, 255);
+}
+.fileName {
+    /* width: 85%; */
+    padding-left: 10px;
+    padding-top: 10px;
+    font-size: 20px;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.previewImage {
+    margin: 10px;
+    height: 30px;
+    width: 50px;
+    border-radius: 8px;
+}
+

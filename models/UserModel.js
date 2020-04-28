@@ -20,6 +20,16 @@ const UserSchema = new Schema({
         type: Number,
         default: 0
     },
+    privateSavings : {
+        type: Number,
+        default: 0,
+    },
+    publicSavings: {
+        type: Number,
+        default: 0,
+    },
+    favorites: Array,
+    savingsInvolved: Array,
     totalDocumentsSize: {
         type: Number,
         default: 0

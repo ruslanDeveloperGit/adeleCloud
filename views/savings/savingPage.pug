@@ -1,0 +1,26 @@
+extends /layouts/layout
+
+block content
+    div(class='savingWrapper')
+        div(class='savingInfoBar')
+            div(class='primaryInfo')
+                div(class='name') #{savingInfo.name}
+                if savingInfo.private
+                    div(class='privateSign')
+                    div(class='involvedUsers') Only You can see it
+                else 
+                    div(class='involvedUsers') Everyone can see this saving
+            div(class='dataInfo')
+                div(class='date') #{savingInfo.stringCreateDate}
+                    span(class='savingSize') #{(savingInfo.filesTotalSize / Math.pow(10, 6)).toFixed(2)} MB
+        div(class='savingFiles')
+            each file in savingInfo.files
+                if file.isImage
+                    a(class='fileLink stretched-link' download=`${file.docName}` href=`${file.docData}`)
+                        img(class='previewImage' src=`${file.docData}`)
+                        div(class='fileName') #{file.docName}
+                        div(class='docSize') #{(file.docSize / Math.pow(10, 6)).toFixed(2)} MB
+                else
+                    a(class='fileLink stretched-link' download=`${file.docName}` href=`${file.docData}`)
+                        div(class='fileName') #{file.docName}
+                        div(class='docSize') #{(file.docSize / Math.pow(10, 6)).toFixed(2)} MB

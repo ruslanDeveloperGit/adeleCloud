@@ -4,7 +4,8 @@ block content
     form(action='/auth/register' method='POST')
         if error
             h1 #{error.message}
-        input(name='userMail' type='text' required)
+        input(name='userName' type='text', required)
+        input(name='userMail' type='email' required)
         input(name='userPassword' type='password' required)
         button(type='sumbit') register
     a(href='/auth/login') login
