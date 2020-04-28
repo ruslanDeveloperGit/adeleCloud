@@ -14,7 +14,7 @@ router.get('/login', async(req, res) => {
 router.post('/login', async( req, res) => {
     const { userMail, userPassword } = req.body;
 
-    let user = await User.findOne({
+    const  user  = await User.findOne({
         email: userMail,
     })
     if(!user){
@@ -24,7 +24,7 @@ router.post('/login', async( req, res) => {
             }
         })
     }
-    const { password } = user;
+    const  { password}  = user
     let validPass = await bcrypt.compare(userPassword, password)
     if(!validPass){
         return res.render('auth/login', {
@@ -51,8 +51,8 @@ router.post('/login', async( req, res) => {
             expiresIn: '1h'
         }  
     )
-    res.cookie('refreshToken', refreshToken, {httpOnly: true, signed: true,   })
-    res.cookie('accessToken', token, {httpOnly: true, signed: true,  })
+    res.cookie('accessToken', token, { httpOnly: true, signed: true })
+    res.cookie('refreshToken', refreshToken, { httpOnly: true, signed: true })
     return res.redirect('/savings')
 
 })
@@ -82,6 +82,7 @@ router.post('/register', async(req, res) => {
     })
     
     await newUser.save()
+    let savedUser = await User.findOne({ email : userEmail })
 
     const token = jwt.sign(
         {
@@ -101,8 +102,8 @@ router.post('/register', async(req, res) => {
             expiresIn: '1h'
         }  
     )
-    res.cookie('refreshToken', refreshToken, {httpOnly: true,signed:true, })
-    res.cookie('accessToken', token, {httpOnly:true, signed:true, })
+    res.cookie('accessToken', token, { httpOnly:true, signed:true })
+    res.cookie('refreshToken', refreshToken, { httpOnly: true,signed:true })
     return res.redirect('/savings')
 
 })

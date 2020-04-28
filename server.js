@@ -28,11 +28,11 @@ app.use(express.static(path.join(__dirname + '/public')))
 app.use(bodyParser.json({limit: '20mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '20mb', extended: true}))
 app.use(cookieParser(process.env.COOKIE_SECRET))
-app.use(session({
-    resave: true,
-    saveUninitialized: true,
-    secret: process.env.SESSION_SECRET
-}))
+// app.use(session({
+//     resave: true,
+//     saveUninitialized: true,
+//     secret: process.env.SESSION_SECRET
+// }))
 
 // mongoose 
 mongoose.connect(process.env.DB_URL, { 

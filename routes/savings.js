@@ -15,7 +15,8 @@ router.get('/', async (req, res) => {
         let { accessToken } = req.signedCookies;
         let { email } = jwt.decode(accessToken)
         let userSavings = await Saving.find({ owner: email });
-        let currentUser = await User.findOne({ email })
+        let currentUser = await User.findOne({ email });
+
         res.render('savings/index', {
             savings: userSavings,
             user: currentUser
@@ -36,20 +37,18 @@ router.get('/new', (req, res) => {
 // create new saving 
 router.post('/', async (req, res) => {
     const {name} = req.body // name of saving
-    let { accessToken } = req.signedCookies;
-    let { email } = jwt.decode(accessToken)
     let files = req.body.files // array of encoded files
     let isPrivate; // private saving 
     let savingDocuments = []
 
     // updating user obeject
-    let duringUser = await User.findOne({ email })
-    duringUser.totalSavings += 1
+    let { email } = req.signedCookies.userInfo;
+    let currentUser  = await User.findOne({ email })
+    currentUser.totalSavings += 1
 
     for (let i = 0; i < files.length; i++) {
         files[i] = JSON.parse(files[i])
-        console.log(files[i].type)
-        duringUser.totalDocumentsSize += Number(files[i].size)
+        currentUser.totalDocumentsSize += Number(files[i].size)
         let encodedFile = {
             docName: files[i].name,
             docType: files[i].type,
@@ -73,7 +72,7 @@ router.post('/', async (req, res) => {
         files: savingDocuments
 
     });
-    await duringUser.save()
+    await currentUser.save()
     await saving.save();
     return res.redirect('/savings');
 
