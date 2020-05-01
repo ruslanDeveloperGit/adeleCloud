@@ -68,11 +68,6 @@ router.get('/:id/', async ( req, res ) => {
     if ( !saving ) {
         return res.send('Saving not found')
     }
-    let savingDocuments = [] // all files to save
-    let isPrivate = false ; // private saving 
-    if (req.body.private) {
-        isPrivate = true;
-    }
     
    
     // updating user obeject
@@ -84,12 +79,12 @@ router.get('/:id/', async ( req, res ) => {
         if(!email) return res.send('You have to authorize to see this saving.')
 
         let accessingUser = await User.findOne({ email })
-        let accessingUserObject = {
-            name: accessingUser.userName,
-            profileId: accessingUser.profileId
-        }
-        
-        if (!saving.involved.includes(accessingUserObject.toString()) && email !== saving.owner ) {  
+    
+        let isInvolved = !!saving.involved.find((user) => {
+            return user.profileId == accessingUser.profileId
+        })
+       
+        if (!isInvolved && email !== saving.owner ) {  
             return res.send('This is a private saving and you don\'t have access to it')
         }
     }
@@ -106,10 +101,12 @@ router.get('/:id/', async ( req, res ) => {
     }
     let { userName} = await User.findOne({ email: saving.owner})
     let ownerName = userName
+    
     if ( email == saving.owner ) ownerName = 'You'
         res.render('savings/savingPage', {
             savingInfo: saving,
-            ownerName
+            ownerName,
+            
         })
 })
        
@@ -132,21 +129,27 @@ router.post('/', verifyToken, async (req, res, next) => {
     if (req.body.private) {
         isPrivate = true;
     }
-    // finding involved users ids
-    for ( let i = 0; i < involved.length; i++ ) {
-        User.findOne({ userName: involved[i].trim() }).then(async(doc) => {
-            involved[i] = {
-                name: involved[i],
-                profileId: doc.profileId
-            }
-            doc.savingsInvolved = {
-                name,
-                id: savingId
-            }
-            await doc.save()
-        })
-        
+    if( !isPrivate ) {
+        involved = []
     }
+    else {
+        // finding involved users ids
+        for ( let i = 0; i < involved.length; i++ ) {
+            User.findOne({ userName: involved[i].trim() }).then(async(doc) => {
+                involved[i] = {
+                    name: involved[i],
+                    profileId: doc.profileId
+                }
+                doc.savingsInvolved = {
+                    name,
+                    savingId
+                }
+                await doc.save()
+            })
+        
+        }
+    }
+    
     
    
     // updating user obeject

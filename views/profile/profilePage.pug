@@ -17,7 +17,7 @@ block content
             div(class='dashboardColumn')
                 div(class='columnName') Savings involved
                     each saving in user.savingsInvolved
-                        a(class='streched-link columnRow' href=`/savings/${saving.id}`) #{saving.name}
+                        a(class='streched-link columnRow' href=`/savings/${saving.savingId}`) #{saving.name}
     else
         div(class='userName') #{user.userName}
         div(class='userId') ID: #{user.profileId}

@@ -5,7 +5,7 @@ body{
 
 }
 .navbar {
-  background-color: rgb(246, 176, 45);
+  background-color: rgb(46, 78, 255);
 }
 
 .search-input{
@@ -220,19 +220,9 @@ body{
   pointer-events: none;
   cursor: default;
 }
-
-.involvedUsers {
-  /* position: absolute; */
-  margin-top: 10px;
-  margin-left: 25px;
-  width: 50%;
-  height: 40px;
-  padding: 10px;
-  border: none;
-  border-radius: 12px;
-  outline: none;
-}
 .usersInvolvedDiv {
+  width: 60%;
+  margin-left: 25px;
   margin-bottom: 60px;
   position: relative;
   display: none;

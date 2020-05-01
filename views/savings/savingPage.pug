@@ -5,12 +5,11 @@ block content
         div(class='savingInfoBar')
             div(class='primaryInfo')
                 div(class='name') #{savingInfo.name}
-                div(class='involvedUsers')
+                div(class='privateSign')
+                span(class='involvedUsers')
                     if savingInfo.private
-                        div(class='privateSign')
-                
                         if savingInfo.involved.length !== 0
-                            | #{ownerName}, 
+                            b #{ownerName},   
                             each user, index in savingInfo.involved
 
                                 if index == 3 && savingInfo.involved.lenght > 3
@@ -20,7 +19,11 @@ block content
                                     | #{user.name} have access to this saving
                                     - break
                                 
-                                |   #{user.name}, 
+                                |   #{user.name},
+                        else 
+                            | Only 
+                            b You 
+                            | can see this saving 
                     else 
                         | Everyone can see this saving
 

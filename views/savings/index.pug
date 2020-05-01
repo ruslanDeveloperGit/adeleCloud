@@ -2,37 +2,50 @@ extends /layouts/layout
 
 block content
     div(class='wrapper')
-        div(class='userInfo')
-            a(class='streched-link userLink'  href='/savings/new')        
-                div(class='userInfoItem userName') #{user.userName}
-            div(class='userInfoItem userTotalSavings') Created 
-                span(class='savingsAmount') #{user.totalSavings}  
-                | savings (tap for info)
-            div(class='userInfoItem savingsInfo hiddenAtStart') Public:
-                span(class='savingsAmount') #{user.publicSavings}
-            div(class=' userInfoItem savingsInfo hiddenAtStart') Private: 
-                span(class='savingsAmount') #{user.privateSavings}
-            div(class='userInfoItem userTotalSize lastInfoItem')  Used 
-                span(class='usedAmount') #{(user.totalDocumentsSize / Math.pow(10, 6)).toFixed(3)} 
-                | of 20MB
+        div(class='d-flex justify-content-between')
+            div(class='d-flex')
+                div(class='profileLink profile') Go to profile
+                div(class='profileLink friends') Friends
+                div(class='profileLink favorites') Favorites
+            div(class='usedInfo') 
+                h1 #{(user.totalDocumentsSize / Math.pow(10, 6)).toFixed(2)}MB of 1GB
+                span used
         div(class='savingsWrapper')
             each saving in savings
                 div(class='saving')
+                    div(class='additionalInfo')
+                        ul
+                            li(class='infoRow') Created: 
+                                b 3#{saving.stringCreateDate}
+                            li(class='infoRow') Size: 
+                                b #{saving.filesTotalSize}
+                            li(class='infoRow') Files: 
+                                b #{saving.filesAmount}
+                            if saving.private
+                                li(class='infoRow') Private:
+                                    b yes
+                            else 
+                                li(class='infoRow') Private:
+                                    b no
                     div(class='infoBar d-flex justify-content-between')
-                        a(class='savingName' href=`/savings/${saving.savingId}`) #{saving.name}
-                        div(class='infoButton' onclick='console.log("all ok")')
+                        div
+                            a(class='savingName' href=`/savings/${saving.savingId}`) #{saving.name}
+                            if saving.private
+                                div(class='privateSign')
+                        div(class='infoButton')
                     a(class='streched-link' onclick=`document.location.href='/savings/${saving.savingId}'`)
                         div(class='filesPreview' onclick=`document.location.href='/savings/${saving.savingId}'`)
                             div(class='firstFilePreview')
                                 if saving.files[0].docName.length > 30
-                                    div(class='firstFileName') #{saving.files[0].docName.slice(0, 30).trim()}...
+                                        div(class='firstFileName') #{saving.files[0].docName.slice(0, 23).trim()}...
                                 else
                                     div(class='firstFileName') #{saving.files[0].docName}
                                 div(class='firstFileSize') #{(saving.files[0].docSize / Math.pow(10, 6)).toFixed(3)} MB
                             if saving.files.length > 1
                                 div(class='firstFilePreview')
                                     if saving.files[0].docName.length > 30
-                                        div(class='firstFileName') #{saving.files[1].docName.slice(0, 30).trim()}...
+                                        div(class='firstFileName') #{saving.files[1].docName.slice(0, 23).trim()}...
                                     else
                                         div(class='firstFileName') #{saving.files[1].docName}
                                     div(class='firstFileSize') #{(saving.files[1].docSize / Math.pow(10, 6)).toFixed(3)} MB
+    script(src='/javascripts/savingsScript.js' defer)
