@@ -1,6 +1,0 @@
-4. remake saving routes for unauthrized users.
-1. Make user profile page.
-5. Remake userSchema for adding favorites.
-6. Make add friends avaliable.
-2. Make menus for all savings page.
-3. make menus for certain saving page.

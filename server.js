@@ -12,9 +12,9 @@ const session = require('express-session')
 
 
 // middlewares
-const { verifyToken } = require('./helpers/tokenVerify')
 const savingsRouter = require('./routes/savings');
 const authRouter = require('./routes/auth')
+const profilesRouter = require('./routes/profile')
 
 // app setup
 // puclic setup
@@ -28,11 +28,7 @@ app.use(express.static(path.join(__dirname + '/public')))
 app.use(bodyParser.json({limit: '20mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '20mb', extended: true}))
 app.use(cookieParser(process.env.COOKIE_SECRET))
-// app.use(session({
-//     resave: true,
-//     saveUninitialized: true,
-//     secret: process.env.SESSION_SECRET
-// }))
+
 
 // mongoose 
 mongoose.connect(process.env.DB_URL, { 
@@ -48,7 +44,8 @@ db.once('connected', () => console.log('MongoDB connected to the server...'))
 app.get('/', (req, res) => {
     res.redirect('/savings')
 })
-app.use('/savings/',verifyToken, savingsRouter);
+app.use('/profile/', profilesRouter)
+app.use('/savings/', savingsRouter);
 app.use('/auth/', authRouter)
 
 

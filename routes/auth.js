@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
+const uniqid = require('uniqid')
 const router = Router()
 
 const User = require('../models/UserModel')
@@ -8,6 +9,8 @@ const User = require('../models/UserModel')
 
 // auth page
 router.get('/login', async(req, res) => {
+    if( req.signedCookies.accessToken ) return res.redirect('/savings')
+
     res.render('auth/login')
 })
 
@@ -24,7 +27,7 @@ router.post('/login', async( req, res) => {
             }
         })
     }
-    const  { password}  = user
+    const  { password, profileId, userName}  = user
     let validPass = await bcrypt.compare(userPassword, password)
     if(!validPass){
         return res.render('auth/login', {
@@ -36,6 +39,7 @@ router.post('/login', async( req, res) => {
     const token = jwt.sign(
         {
             email: userMail,
+            id: profileId
         },
         process.env.ACCESS_TOKEN,
         {
@@ -45,6 +49,9 @@ router.post('/login', async( req, res) => {
     const refreshToken = jwt.sign(
         {
             email: userMail,
+            id: profileId,
+            name: userName
+
         },
         process.env.REFRESH_TOKEN,
         {
@@ -59,6 +66,7 @@ router.post('/login', async( req, res) => {
 
 // register page
 router.get('/register', async(req, res) => {
+    if( req.signedCookies.accessToken ) return res.redirect('/savings')
     res.render('auth/register')
 })
 
@@ -75,8 +83,10 @@ router.post('/register', async(req, res) => {
             }
         })
     }
+    let profileId =  uniqid('u_') // uniq profile id
 
     let newUser = new User({
+        profileId, 
         userName,
         email: userMail,
         password: hashedPassword
@@ -87,6 +97,7 @@ router.post('/register', async(req, res) => {
     const token = jwt.sign(
         {
             email: userMail,
+            id: profileId
         },
         process.env.ACCESS_TOKEN,
         {
@@ -95,7 +106,9 @@ router.post('/register', async(req, res) => {
     )
     const refreshToken = jwt.sign(
         {
-            email: userMail
+            email: userMail,
+            name: userName,
+            id: profileId
         },
         process.env.REFRESH_TOKEN,
         {

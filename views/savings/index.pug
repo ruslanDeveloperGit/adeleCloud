@@ -19,10 +19,10 @@ block content
             each saving in savings
                 div(class='saving')
                     div(class='infoBar d-flex justify-content-between')
-                        a(class='savingName' href=`/savings/${saving.id}`) #{saving.name}
+                        a(class='savingName' href=`/savings/${saving.savingId}`) #{saving.name}
                         div(class='infoButton' onclick='console.log("all ok")')
-                    a(class='streched-link' onclick=`document.location.href='/savings/${saving.id}'`)
-                        div(class='filesPreview' onclick=`document.location.href='/savings/${saving.id}'`)
+                    a(class='streched-link' onclick=`document.location.href='/savings/${saving.savingId}'`)
+                        div(class='filesPreview' onclick=`document.location.href='/savings/${saving.savingId}'`)
                             div(class='firstFilePreview')
                                 if saving.files[0].docName.length > 30
                                     div(class='firstFileName') #{saving.files[0].docName.slice(0, 30).trim()}...

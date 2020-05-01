@@ -1,0 +1,16 @@
+extends /layouts/layout
+
+block content 
+    div(class='friendsList') 
+        if receivedRequests.length > 0 
+            div(class='friendsColumn')
+                for friend in friends 
+                    div(class='friendRow')
+                        a(class='streched-link friendName' href=`/profile/${friend.profileId}`) #{friend.name}
+            div(class='requestsColumn')
+                each request in receivedRequests 
+                    a(class='streched-link requestName' href=`/profile/${request.profileId}`) Request from #{request.from}
+        else
+            each friend in friends 
+                div(class='friendRow')
+                    a(class='streched-link friendName' href=`/profile/${friend.profileId}`) #{friend.name}

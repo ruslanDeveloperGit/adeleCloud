@@ -1,0 +1,50 @@
+extends /layouts/layout
+
+block content
+    if own
+        div(class='userName') #{user.userName}
+        div(class='userId') ID: #{user.profileId}
+        a(class='freindsLink' href='/profile/friends') #{user.friends.length } friends
+        div(class='dataInfo d-flex justify-content-between')
+            div(class='dashboardColumn') 
+                div(class='columnName') Favorites
+            div(class='dashborardColumn')
+                div(class='columnName') Savings
+                div(class='columnRown') Total: #{user.totalSavings}
+                div(class='columnRown') Public: #{user.publicSavings}
+                div(class='columnRown') Private: #{user.privateSavings}
+                div(class='columnRown') Used #{(user.totalDocumentsSize / Math.pow(10, 6)).toFixed(3)}MB of
+            div(class='dashboardColumn')
+                div(class='columnName') Savings involved
+                    each saving in user.savingsInvolved
+                        a(class='streched-link columnRow' href=`/savings/${saving.id}`) #{saving.name}
+    else
+        div(class='userName') #{user.userName}
+        div(class='userId') ID: #{user.profileId}
+        div(class='freindsLink') #{user.friends.length } freinds
+        if isRequestReceived
+            button.disabled answer for request
+            form(action=`/profile/acceptRequest/${user.profileId}` method='POST')
+                button Accept
+            form(action=`/profile/declineRequest/${user.profileId}` method='POST')
+                button Decline
+
+        else if isFriends == true
+            span You are friends
+            form(action=`/profile/removeFriend/${user.profileId}` method='POST')
+                button Remove friend
+        else if isRequestSent 
+            button.disabled Request sent
+            form(action=`/profile/cancelRequest/${user.profileId}` method='POST')
+                button Cancel request
+        else
+            span You're not friends
+            form(action=`/profile/sendRequest/${user.profileId}` method='POST')
+                button Send request  
+            
+        div(class='dataInfo d-flex justify-content-between')
+            div(class='dashborardColumn')
+                div(class='columnName') Savings
+                div(class='columnRown') Total: #{user.totalSavings}
+                div(class='columnRown') Public: #{user.publicSavings}
+                div(class='columnRown') Private: #{user.privateSavings}

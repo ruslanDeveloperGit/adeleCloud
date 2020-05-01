@@ -6,7 +6,12 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
+    profileId: {
+        type: String,
+        required: true
+    },
     userName: {
+        unique: true, 
         type: String,
         required: true,
         maxlength: 15,
@@ -28,13 +33,35 @@ const UserSchema = new Schema({
         type: Number,
         default: 0,
     },
-    friends: Array,
-    favorites: Array,
-    savingsInvolved: Array,
+    friends: [ {
+        name: String,
+        profileId: String
+    } ],
+    favorites: [ {
+        name: String,
+        savingId: String
+    }],
+    savingsInvolved: [ {
+        name: String,
+        savingId: String
+    } ],
     totalDocumentsSize: {
         type: Number,
         default: 0
-    }
+    },
+    sentRequests: [ {
+        to: String,
+        profileId: String,
+        requestDate: Date
+    } ],
+    receivedRequests: [ {
+        from: String,
+        profileId: String,
+        pendingDate: {
+            type: Date,
+            default: Date.now()
+        }
+    } ]
     
 });
 

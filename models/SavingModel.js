@@ -24,6 +24,10 @@ const SavingSchema = new Schema({
         required: true,
         maxlength: 30,
     },
+    savingId: {
+        type: String, 
+        required: true, 
+    },
     owner: {
         required: true,
         type: String,
@@ -51,7 +55,10 @@ const SavingSchema = new Schema({
         required: true,
         type: String,
     },
-    involved: Array
+    involved: [ {
+        name: String,
+        profileId: String
+    } ]
 
     
 });
