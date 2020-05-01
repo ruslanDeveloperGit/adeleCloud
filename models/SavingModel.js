@@ -50,7 +50,9 @@ const SavingSchema = new Schema({
     stringCreateDate: {
         required: true,
         type: String,
-    }
+    },
+    involved: Array
+
     
 });
 module.exports = model('Saving', SavingSchema);

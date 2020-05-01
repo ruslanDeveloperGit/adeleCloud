@@ -98,7 +98,9 @@
     float: right
 }
 .userInfo {
-    min-height: 200px;
+    
+    min-height: 130px;
+    height: 13%;
     min-width: 200px;
     width: 20%;
     font-size: large;
@@ -144,7 +146,7 @@
 }
 .lastInfoItem {
     /* border-radius: 30px; */
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .hiddenAtStart {

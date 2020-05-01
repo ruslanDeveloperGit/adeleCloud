@@ -28,6 +28,7 @@ const UserSchema = new Schema({
         type: Number,
         default: 0,
     },
+    friends: Array,
     favorites: Array,
     savingsInvolved: Array,
     totalDocumentsSize: {

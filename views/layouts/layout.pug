@@ -2,23 +2,39 @@
 html(lang="en")
     head
         meta(charset="UTF-8")
-        //- meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+        //-  bootstrap adn jquery styles
+
         link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous")
-        link(rel='stylesheet' href='/styles/styles.css')
+        link(rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css")
+
+        //- own styles
         link(rel="stylesheet", href="/styles/savingsPage.css")
         link(rel="stylesheet", href="/styles/certainSavingPage.css")
+        link(rel='stylesheet' href='/styles/styles.css')
+
+
+        //-  filepond styles
         link(href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet")
         link(rel="stylesheet", href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css")
+
+        //- srcipts to make filepond working
         script(defer src="https://unpkg.com/filepond/dist/filepond.js")
         script(defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js")
         script(defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js")
         script(src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js" defer)
         script(defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js")
-        script(defer src="/javascripts/fileUpload.js")
-        script(defer src='/javascripts/savingsScript.js')
+        //- jquery / jqueryUI scripts
+        script(defer src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous" )
+        script(defer src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous")
+
+        //- own scripts
+        script( src="/javascripts/fileUpload.js" defer)
+        script(src="/javascripts/savingsScript.js" defer)
         script(src="/javascripts/headerScripts.js" defer)
-        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+
+        
+      
         title AdeleCloud
     body
         include /partials/header.pug

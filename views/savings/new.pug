@@ -6,15 +6,18 @@ block content
         form(action='/savings ' class='create-saving' method='POST'  autocomplete="off")
             .info
                 label(for="name" class='info-label') Name of your saving
-                input(placeholder='Name' name='name'  class='form-control name-input' type='text' required)
+                input(placeholder='Name' name='name'  class='form-control  name-input' type='text' required)
                 label.private-container Private
                     input(type='checkbox' name='private' class='checkbox' )
                     span.private-checkmark
+                .usersInvolvedDiv
+                    span(class='privateSelectedMessage') Want to add someby to access?
+                    input(class='involvedUsers form-control ui-autocomplete-input' type='text' name='involved' placeholder="Freinds")
                 .size-indicator
                     span#file-size.file-size-green 0 / 20MB
                 button(type='submit' class='create-saving-button btn btn-outline-success') Create
             .file-input-background
                 input(class='filepond file-input' required type='file' name='files[]' id='file' multiple data-allow-reorder="true")
-                    //- label(for='file')
-                    //-     strong.choose Choose file 
-                    //-     span(class='dragndrop') or drag it here
+            script.
+                let friends = '#{friends}'
+            script(src="/javascripts/newPage.js" defer)

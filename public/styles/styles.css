@@ -1,5 +1,5 @@
 body{
-  min-height: 600px !important;
+  min-height: 700px !important;
   height: 100vh;
   min-width: 1000px !important; 
 
@@ -220,3 +220,35 @@ body{
   pointer-events: none;
   cursor: default;
 }
+
+.involvedUsers {
+  /* position: absolute; */
+  margin-top: 10px;
+  margin-left: 25px;
+  width: 50%;
+  height: 40px;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+}
+.usersInvolvedDiv {
+  margin-bottom: 60px;
+  position: relative;
+  display: none;
+  font-size: large;
+}
+.privateSelectedMessage {
+  padding: 10px;
+  color: rgb(50, 182, 50);
+
+}
+#ui-id-1 {
+  border-radius: 10px;
+  outline: none;
+}
+
+.ui-helper-hidden-accessible{
+  border-radius: 10px;
+}  
+

@@ -30,11 +30,24 @@ router.get('/', async (req, res) => {
 
 
 // new saving 
-router.get('/new', (req, res) => {
+router.get('/new', async (req, res) => {
     if(res.locals.ejected){ // local for check if user ejected
         return
     }
-    res.render('savings/new')
+    let { email } = jwt.decode(req.signedCookies.accessToken)
+
+    const  { friends } = await User.findOne({ email })
+    let friendsNames = [];
+    for ( let i = 0; i < friends.length; i++ ) {
+        console.log(friends[i])
+        const { userName } = await User.findOne({ email: friends[i] })
+        console.log(userName)
+        friendsNames.push(userName)
+    }
+
+    res.render('savings/new', {
+        friends: friendsNames
+    })
 })
 
 router.get('/:id', async (req, res) => {
@@ -43,12 +56,18 @@ router.get('/:id', async (req, res) => {
     }
     try {
         let savingId = req.params.id
+        let { email } = jwt.decode(req.signedCookies.accessToken)
         if ( savingId.length < 24) {
             res.send('Invalid id of saving')
         }
         let saving = await Saving.findById(savingId);
         if ( !saving ) {
             res.send('Saving not found')
+        }
+        let accessingUser = await User.findOne({ email })
+        if (!saving.involved.includes(accessingUser.userName) && email !== saving.owner ) {
+           
+            return res.send('This is a private saving and you don\'t have access to it')
         }
         saving = saving.toObject()
         for (let i = 0; i < saving.files.length; i++) {
@@ -62,8 +81,12 @@ router.get('/:id', async (req, res) => {
                 // console.log(saving.file[i])
                 saving.files[i].docData = documentData
         }
+        let { userName} = await User.findOne({ email: saving.owner})
+        let ownerName = userName
+        if ( email == saving.owner ) ownerName = 'You'
         res.render('savings/savingPage', {
-            savingInfo: saving
+            savingInfo: saving,
+            ownerName
         })
     } catch (e) {
         console.error(e)
@@ -74,6 +97,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     const {name} = req.body // name of saving
     let files = req.body.files // array of encoded files
+    let involved = req.body.involved.trim().split(', ')
     let savingDocuments = [] // all files to save
     let isPrivate = false ; // private saving 
     if (req.body.private) {
@@ -110,6 +134,7 @@ router.post('/', async (req, res) => {
     let saving = new Saving({
         name,
         filesTotalSize,
+        involved,
         stringCreateDate: todayString,
         filesAmount: savingDocuments.length,
         owner: email,

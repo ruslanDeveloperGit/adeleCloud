@@ -5,6 +5,7 @@
 }
 /* info bar  */
 .savingInfoBar {
+    position: relative;
     display: flex;
     color: black;
     border-bottom-style: solid;
@@ -16,7 +17,7 @@
     min-height: 80px;
 }
 .name {
-    height: 50px;
+    height: 30px;
     padding: 10px 20px;
     /* padding-bottom: 5px; */
     font-size: xx-large;
@@ -24,7 +25,8 @@
 }
 
 .involvedUsers {
-    padding-left: 25px;
+    position: absolute;
+    padding-left: 15px;
     color: rgb(143, 143, 143)
 }
 .savingSize {

@@ -7,9 +7,22 @@ block content
                 div(class='name') #{savingInfo.name}
                 if savingInfo.private
                     div(class='privateSign')
-                    div(class='involvedUsers') Only You can see it
-                else 
-                    div(class='involvedUsers') Everyone can see this saving
+                    div(class='involvedUsers')
+                        if savingInfo.involved.length !== 0
+                            | #{ownerName}, 
+                            each user, index in savingInfo.involved
+                                
+                                if index == 3 && savingInfo.involved.lenght > 3
+                                    | and #{savingInfo.involved.length - 3} more users have access to this saving
+                                    - break
+                                else if index == savingInfo.involved.length - 1
+                                    | #{user} have access to this saving
+                                    - break
+                                
+                                |   #{user}, 
+                        else 
+                            | Everyone can see this saving
+
             div(class='dataInfo')
                 div(class='date') #{savingInfo.stringCreateDate}
                     span(class='savingSize') #{(savingInfo.filesTotalSize / Math.pow(10, 6)).toFixed(2)} MB
