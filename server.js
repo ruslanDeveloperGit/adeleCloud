@@ -44,12 +44,12 @@ db.once('connected', () => console.log('MongoDB connected to the server...'))
 app.get('/', (req, res) => {
     res.redirect('/savings')
 })
+app.use('/auth/', authRouter)
 app.use('/profile/', profilesRouter)
 app.use('/savings/', savingsRouter);
-app.use('/auth/', authRouter)
-app.get('*', function(req, res){
-    res.send(404)
-  });
+app.use(function (req, res, next) {
+    res.status(404).send("Sorry can't find that!")
+  })
 
 
 app.listen(process.env.PORT || 8080, console.log(`Server started on port: ${process.env.PORT || 8080}`))

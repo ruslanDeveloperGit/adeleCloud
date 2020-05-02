@@ -70,7 +70,7 @@ router.post('/acceptRequest/:profileId', verifyToken, async  (req, res ) => {
         return request.profileId !== requestedUserId
     })
     duringUser.friends.push({
-        to: requestedUser.name,
+        name: requestedUser.name,
         profileId: requestedUser.profileId
     })
     // then updating requested user profile by deleting sent request and adding during user to friends
@@ -78,7 +78,7 @@ router.post('/acceptRequest/:profileId', verifyToken, async  (req, res ) => {
        return  request.profileId !== duringUserId
     })
     requestedUser.friends.push({
-        from: duringUser.name,
+        name: duringUser.name,
         profileId: duringUser.profileId
     })
 

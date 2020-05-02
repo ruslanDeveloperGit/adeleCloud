@@ -2,49 +2,75 @@ extends /layouts/layout
 
 block content
     if own
-        div(class='userName') #{user.userName}
-        div(class='userId') ID: #{user.profileId}
-        a(class='freindsLink' href='/profile/friends') #{user.friends.length } friends
-        div(class='dataInfo d-flex justify-content-between')
-            div(class='dashboardColumn') 
-                div(class='columnName') Favorites
-            div(class='dashborardColumn')
-                div(class='columnName') Savings
-                div(class='columnRown') Total: #{user.totalSavings}
-                div(class='columnRown') Public: #{user.publicSavings}
-                div(class='columnRown') Private: #{user.privateSavings}
-                div(class='columnRown') Used #{(user.totalDocumentsSize / Math.pow(10, 6)).toFixed(3)}MB of
-            div(class='dashboardColumn')
-                div(class='columnName') Savings involved
-                    each saving in user.savingsInvolved
-                        a(class='streched-link columnRow' href=`/savings/${saving.savingId}`) #{saving.name}
+        div(class='profileWrapper')
+            div(class='infoContainer')
+                div(class='avatar')
+                div(class='userName') #{user.userName}
+                div(class='userId') ID: #{user.profileId}
+                if user.friends.length == 1
+                    a(class='friendsLink stretched-link' href='/profile/friends') #{user.friends.length } друг
+                else 
+                    a(class='friendsLink stretched-link' href='/profile/friends') #{user.friends.length } друзей
+            div(class='dashboardContainer')
+                div(class='dashboardColumn') 
+                    div(class='columnName') Избранное
+                    if user.favorites.length == 0
+                        div(class='emptyColumnMessage') У вас нет избранных
+                div(class='dashboardColumn')
+                    div(class='columnName') Сохранения
+                    div(class='columnRow') Всего: #{user.totalSavings}
+                    div(class='columnRow') Публичные: #{user.publicSavings}
+                    div(class='columnRow') Приватные: #{user.privateSavings}
+                    div(class='columnRow') Использовано #{(user.totalDocumentsSize / Math.pow(10, 6)).toFixed(3)}MB из хзGB
+                div(class='dashboardColumn')
+                    div(class='columnName') Есть доступ к 
+                    if user.savingsInvolved.length == 0
+                        div(class='emptyColumnMessage') Никто не упоминал вас в сохранениях
+                    else
+                        each saving in user.savingsInvolved
+                            a(class='stretched-link columnRow' href=`/savings/${saving.savingId}`) #{saving.name}
     else
-        div(class='userName') #{user.userName}
-        div(class='userId') ID: #{user.profileId}
-        div(class='freindsLink') #{user.friends.length } freinds
-        if isRequestReceived
-            button.disabled answer for request
-            form(action=`/profile/acceptRequest/${user.profileId}` method='POST')
-                button Accept
-            form(action=`/profile/declineRequest/${user.profileId}` method='POST')
-                button Decline
+        div(class='profileWrapper')
+            div(class='infoContainer notOwn') 
+                div(style='width:200px')
+                div(class='userInfoContainer')
+                    div(class='userName') #{user.userName}
+                    div(class='userId') ID: #{user.profileId}
+                    if user.friends.length == 1
+                        div(class='friendsLink') #{user.friends.length } друг
+                    else
+                        div(class='freindsLink') #{user.friends.length } друзей
+                div(class='friendshipStateContainer')
+                    if isRequestReceived
+                        span(class='state') Запрос на дружбу:
+                        div(class='changeState d-flex')
+                            form(action=`/profile/declineRequest/${user.profileId}` method='POST')
+                                button.btn.btn-danger.declineButton.changeStateButton Отклонить
+                            form(action=`/profile/acceptRequest/${user.profileId}` method='POST')
+                                button.btn.btn-success.changeStateButton Принять
 
-        else if isFriends == true
-            span You are friends
-            form(action=`/profile/removeFriend/${user.profileId}` method='POST')
-                button Remove friend
-        else if isRequestSent 
-            button.disabled Request sent
-            form(action=`/profile/cancelRequest/${user.profileId}` method='POST')
-                button Cancel request
-        else
-            span You're not friends
-            form(action=`/profile/sendRequest/${user.profileId}` method='POST')
-                button Send request  
-            
-        div(class='dataInfo d-flex justify-content-between')
-            div(class='dashborardColumn')
-                div(class='columnName') Savings
-                div(class='columnRown') Total: #{user.totalSavings}
-                div(class='columnRown') Public: #{user.publicSavings}
-                div(class='columnRown') Private: #{user.privateSavings}
+                    else if isFriends == true
+                        span.state Вы друзья
+                        div(class='changeState')
+                            form(action=`/profile/removeFriend/${user.profileId}` method='POST')
+                                button.btn.btn-danger.changeStateButton Удалить из друзей
+                    else if isRequestSent 
+                        span.state Запрос отправлен
+                        form(action=`/profile/cancelRequest/${user.profileId}` method='POST')
+                            button.btn.btn-danger.changeStateButton Отменить 
+                    else    
+                        span.state Вы не друзья
+                        form(action=`/profile/sendRequest/${user.profileId}` method='POST')
+                            button.btn.btn-success.changeStateButton Отправить запрос   
+            div(class='dashboardContainer notOwn')
+                div(class='dashboardColumn notOwn')
+                    div(class='columnName') Сохранения
+                    div(class='columnRow notOwn') Всего: #{user.totalSavings}
+                    div(class='columnRow notOwn') Публичных: #{user.publicSavings}
+                    div(class='columnRow notOwn') Приватных: #{user.privateSavings}
+                div(class='dashboardColumn notOwn')
+                    div(class='columnName') Публичные сохранения
+                    if !publicSavings
+                            div(class='emptyColumnMessage') Не создано
+                    else 
+                        | ыы

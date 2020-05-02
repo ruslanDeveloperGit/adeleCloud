@@ -1,0 +1,124 @@
+
+.profileWrapper {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.infoContainer {
+    margin: auto;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 120px;
+    height: 20%;
+    width: 100%;
+    background-color: rgb(240, 240, 240);
+
+}
+
+.userName {
+    line-height: 30px;
+    font-size: 40px;
+    width: 100px;
+}
+.userId {
+    font: small;
+    color: rgb(179, 179, 179)
+}
+.friendsLink {
+    position: relative;
+    width: 100px;
+    height: 20px;
+    padding-left: 10px;
+    font-size: x-large;
+}
+
+.dashboardContainer {
+    height: 80%;
+    min-height: 480px;
+    width: 100%;
+    display: flex;
+
+    flex-direction: row;
+}
+.dashboardColumn {
+    border-right: 1px solid rgb(218, 218, 218);
+    flex-grow: 1;
+    width: 30%;
+}
+
+.dashboardColumn:last-child {
+    border-right: none;
+}
+.columnName {
+    color: rgb(71, 83, 255);
+    padding-top: 15px;
+    font-size: xx-large;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.columnRow {
+    margin: auto;
+    width: 90%;
+    font-size: large;
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.columnRow:hover {
+    background-color: lightgray;
+}
+
+.emptyColumnMessage {
+    font-size: x-large;
+    color: rgb(161, 161, 161);
+    text-align: center;
+}
+
+.infoContainer.notOwn {
+   flex-direction: row;
+   justify-content: space-between;
+}
+.userInfoContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.dashboardContainer.notOwn {
+    display: flex;
+    width: 100%;
+    margin: auto;
+}
+.dashboardColumn.notOwn {
+
+    width: 20%;
+}
+
+.columnRow.notOwn {
+    width: 60%;
+}
+
+
+.friendshipStateContainer {
+    margin-top: -10px;
+    min-width: 180px;
+    width: 180px;
+}
+
+.state {
+    font-size: 19px;
+}
+
+.declineButton {
+    margin-right: 8px;
+}
+.changeStateButton {
+    margin-top: 10px;
+}

@@ -1,5 +1,5 @@
 body{
-  min-height: 700px !important;
+  min-height: 600px !important;
   height: 100vh;
   min-width: 1000px !important; 
 
@@ -242,3 +242,11 @@ body{
   border-radius: 10px;
 }  
 
+
+.stretched-link {
+  text-decoration: none;
+  color: rgb(90, 190, 251);
+}
+.stretched-link:hover {
+  text-decoration: none;
+}
