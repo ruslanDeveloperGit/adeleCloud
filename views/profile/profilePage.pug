@@ -12,7 +12,7 @@ block content
                 else 
                     a(class='friendsLink stretched-link' href='/profile/friends') #{user.friends.length } друзей
             div(class='dashboardContainer')
-                div(class='dashboardColumn') 
+                div(class='dashboardColumn scrollable') 
                     div(class='columnName') Избранное
                     if user.favorites.length == 0
                         div(class='emptyColumnMessage') У вас нет избранных
@@ -22,32 +22,33 @@ block content
                     div(class='columnRow') Публичные: #{user.publicSavings}
                     div(class='columnRow') Приватные: #{user.privateSavings}
                     div(class='columnRow') Использовано #{(user.totalDocumentsSize / Math.pow(10, 6)).toFixed(3)}MB из хзGB
-                div(class='dashboardColumn')
-                    div(class='columnName') Есть доступ к 
+                div(class='dashboardColumn scrollable')
+                    div(class='columnName') Есть доступ к
                     if user.savingsInvolved.length == 0
-                        div(class='emptyColumnMessage') Никто не упоминал вас в сохранениях
-                    else
+                        div(class='emptyColumnMessage') Никто не упоминал вас в сохранениях 
+                    else 
                         each saving in user.savingsInvolved
                             a(class='stretched-link columnRow' href=`/savings/${saving.savingId}`) #{saving.name}
+                            
     else
         div(class='profileWrapper')
             div(class='infoContainer notOwn') 
-                div(style='width:200px')
+                div(style='width:230px')
                 div(class='userInfoContainer')
-                    div(class='userName') #{user.userName}
+                    div(class='userName notOwn') #{user.userName}
                     div(class='userId') ID: #{user.profileId}
                     if user.friends.length == 1
-                        div(class='friendsLink') #{user.friends.length } друг
+                        div(class='friendsLink stretched-link' href='#' disabled) #{user.friends.length } друг
                     else
-                        div(class='freindsLink') #{user.friends.length } друзей
+                        div(class='friendsLink stretched-link' disabled href='#') #{user.friends.length } друзей
                 div(class='friendshipStateContainer')
                     if isRequestReceived
                         span(class='state') Запрос на дружбу:
                         div(class='changeState d-flex')
                             form(action=`/profile/declineRequest/${user.profileId}` method='POST')
-                                button.btn.btn-danger.declineButton.changeStateButton Отклонить
+                                button.btn.btn-danger.declineButton.changeStateButton.twoBtns Отклонить
                             form(action=`/profile/acceptRequest/${user.profileId}` method='POST')
-                                button.btn.btn-success.changeStateButton Принять
+                                button.btn.btn-success.changeStateButton.twoBtns Принять
 
                     else if isFriends == true
                         span.state Вы друзья
@@ -69,7 +70,7 @@ block content
                     div(class='columnRow notOwn') Публичных: #{user.publicSavings}
                     div(class='columnRow notOwn') Приватных: #{user.privateSavings}
                 div(class='dashboardColumn notOwn')
-                    div(class='columnName') Публичные сохранения
+                    div(class='columnName scrollable') Публичные сохранения
                     if !publicSavings
                             div(class='emptyColumnMessage') Не создано
                     else 

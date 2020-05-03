@@ -1,24 +1,39 @@
 extends /layouts/layout
 
-block content 
-    .create-new-saving-container
-        h1.form-label New Saving 
-        form(action='/savings ' class='create-saving' method='POST'  autocomplete="off")
-            .info
-                label(for="name" class='info-label') Name of your saving
-                input(placeholder='Name' name='name'  class='form-control  name-input' type='text' required)
-                label.private-container Private
-                    input(type='checkbox' name='private' class='checkbox' )
-                    span.private-checkmark
-                .usersInvolvedDiv
-                    span(class='privateSelectedMessage') Want to add someby to access?
-                    input(class='involvedUsers form-control ui-autocomplete-input' type='text' name='involved' placeholder="Freinds")
-                .size-indicator
-                    span#file-size.file-size-green 0 / 20MB
-                button(type='submit' class='create-saving-button btn btn-outline-success') Create
-            .file-input-background
-                input(class='filepond file-input' required type='file' name='files[]' id='file' multiple data-allow-reorder="true")
-            script.
-                let friends = '#{friends}'
+block content
+    .wrapper
+        .create-new-saving-container
+            h1.form-label Новое сохранение 
+            form(method='POST' action='/savings' class='create-saving'  autocomplete="off")
+                .info
+                    label(for="name" class='info-label') Название сохранения
+                    input(placeholder='Название' name='name' required  class='form-control  name-input' type='text')
+                    label.private-container Приватное
+                        input(type='checkbox' name='private' class='checkbox' )
+                        span.private-checkmark
+                    .usersInvolvedDiv
+                        input(class='d-none' name='involved')
+                        div(class='privateSelectedMessage ') Добавить друзей
+                        div(class='d-flex choosed-buttons-wrapper')
+                            div(class='show-choosed-btn btn btn-info '  id='showChoosed') Показать выбранных
+                            div(class='btn btn-success choose-friends-btn' id='chooseFriends') Выбрать друзей
+
+                        div(class='choosed-users ' name='involved' id='choosedUsersBox' style='display: none;')
+                    .size-indicator
+                        span#file-size.file-size-green 0 / 20MB
+                    button(type='submit' id='createBtn' class='create-saving-button btn btn-outline-success') Создать
+                .file-input-background
+                    input(class='filepond file-input' required type='file' name='files[]' id='file' multiple data-allow-reorder="true")
+    .choose-friends-modal
+        .modal-info-bar
+            div(class='modal-label') Список друзей
+            div(class='btn btn-danger btn-close-modal' id='closeModal')
+        .friendsChoosed.file-size-green 0 / 10 друзей выбрано
+        .modal-friends-list
+        .action-buttons-container
+            div(class='btn btn-danger' id='cancelBtn') Отменить
+            div(class='btn btn-success' id='saveBtn') Сохранить
+    script.
+        let profileId = '#{id}'
     script(src="/javascripts/newPage.js" defer)
     script(src="/javascripts/fileUpload.js" defer)

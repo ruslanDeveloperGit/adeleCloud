@@ -26,13 +26,16 @@ body{
   font-size: xx-large;
   width: 0px;
 }
-
+.wrapper {
+  height: 80%;
+  min-height: 300px;
+}
 .create-new-saving-container{
   width: 80%;
   margin: auto;
   position: relative;
   min-height: 300px;
-  height: 60%;
+  height: 100%;
   margin-top: 50px;
 }
 
@@ -223,7 +226,7 @@ body{
 .usersInvolvedDiv {
   width: 60%;
   margin-left: 25px;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
   position: relative;
   display: none;
   font-size: large;
@@ -249,4 +252,174 @@ body{
 }
 .stretched-link:hover {
   text-decoration: none;
+}
+
+.choose-friends-btn {
+  /* margin-top: 10px; */
+  margin-left: 10px
+}
+
+.choose-friends-modal {
+  display: none;
+  border-radius: 35px;
+  min-width: 300px;
+  min-height: 300px;
+  width: 40%;
+  height: 50%;
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgb(161, 161, 161);
+}
+.modal-info-bar {
+  display: flex; 
+  height: 20%;
+  border-bottom: 1px solid lightgray;
+}
+.modal-label {
+  padding-left: 15px;
+  padding-top: 10px;
+  color: lightskyblue;
+  font-size: 30px ;
+}
+.btn-close-modal {
+  background-image: url('../icons/close-sign.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 33px;
+  height: 33px;
+  border-radius: 5px;
+  margin-right: 15px;
+  margin-top: 10px;
+  margin-left:  auto;
+}
+.blured { 
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  cursor: pointer;
+}
+
+.blured > .create-new-saving-container {
+  pointer-events: none;
+}
+
+.modal-user-row {
+  width: 90%;
+  height: 50px;
+  margin: auto;
+  border: 1px solid rgb(204, 204, 204); 
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+.friend-name {
+  font-size: 25px;
+  text-align: center; line-height: 50px;
+  padding-left: 10px
+
+}
+.add-user-button {
+  height: 100%;
+  min-width: 30%;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.add-user-button span {
+  display: block;
+}
+
+.friendsChoosed {
+  padding-top: 10px;
+  width: 90%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: x-large;
+  margin: auto;
+}
+
+.action-buttons-container {
+  display: flex;
+  border-top: 1px solid lightgrey;
+  justify-content: center;
+  min-height: 50px;
+  padding-top: 5px;
+  margin-bottom: 5px;
+  /* align-content: center;
+  align-self:  center; */
+}
+.action-buttons-container > .btn-danger {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.action-buttons-container > .btn {
+  margin-bottom: 10px;
+}
+
+.modal-friends-list {
+  overflow-y: scroll;
+  height: 48%;
+}
+.modal-friends-list::-webkit-scrollbar {
+  display: none;
+}
+.emptyFriendsMessage {
+  text-align: center;
+  font-size: 22px;
+  margin-top: 40px
+}
+
+.choosed-users {
+  display: flex;
+  flex-direction: column;
+  /* position: absolute; */
+  width: 200px;
+  max-height: 100px;
+  background-color: white;
+  border-radius: 12px;
+ 
+  overflow-y: scroll;
+}
+.choosed-users::-webkit-scrollbar {
+  display: none;
+}
+.choosed-user-row {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  font-size: 19px;;
+  width: 100%;
+  height: 40px;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid lightgray;
+}
+.choosed-user-row:first-child {
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+}
+
+.choosed-user-row:hover {
+  background-color: rgb(235, 235, 235);
+}
+
+.show-choosed-btn {
+  display: none;
+}
+.choosed-buttons-wrapper {
+  width: 100%;
+}
+
+.choosed-buttons-wrapper {
+  max-height: 35px;
+  width: 350px;
+  margin-bottom: 10px;
 }

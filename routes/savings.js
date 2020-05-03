@@ -38,20 +38,10 @@ router.get('/new', verifyToken, async (req, res, next) => {
     if(res.locals.ejected){ // local for check if user ejected
         return
     }
-    let { email } = jwt.decode(req.signedCookies.accessToken)
-
-    const  { friends } = await User.findOne({ email })
-    for (let friend in friends) {
-        friend = friend.name
-    }
-    let friendsNames = [];
-    for ( let i = 0; i < friends.length; i++ ) {
-        const { userName } = await User.findOne({ profileId: friends[i].profileId })
-        friendsNames.push(userName)
-    }
+    let { id } = jwt.decode(req.signedCookies.accessToken)
 
     res.render('savings/new', {
-        friends: friendsNames
+        id,
     })
 })
 
@@ -122,24 +112,20 @@ router.post('/', verifyToken, async (req, res, next) => {
     const {name} = req.body // name of saving
     let files = req.body.files // array of encoded files
     let savingId = uniqid('save_')
-    let involved = req.body.involved.trim().split(',')
-    involved.pop()
+    let involved = JSON.parse(req.body.involved)
     let savingDocuments = [] // all files to save
     let isPrivate = false ; // private saving 
     if (req.body.private) {
         isPrivate = true;
     }
+    
     if( !isPrivate ) {
         involved = []
     }
     else {
         // finding involved users ids
         for ( let i = 0; i < involved.length; i++ ) {
-            User.findOne({ userName: involved[i].trim() }).then(async(doc) => {
-                involved[i] = {
-                    name: involved[i],
-                    profileId: doc.profileId
-                }
+            User.findOne({ profileId: involved[i].profileId }).then(async(doc) => {
                 doc.savingsInvolved = {
                     name,
                     savingId
@@ -192,7 +178,7 @@ router.post('/', verifyToken, async (req, res, next) => {
     });
     await currentUser.save()
     await saving.save();
-    return res.redirect('/savings');
+    return res.redirect('/savings/' + savingId);
 
 
 })

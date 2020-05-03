@@ -1,3 +1,6 @@
-jQuery(document).on('load', () => {
-    document.location.href = document.location.href
+jQuery(document).ready( () => {
+    setTimeout(() => {
+        window.location = window.location.href;
+
+    }, 1000 * 1800)
 })

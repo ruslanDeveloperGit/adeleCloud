@@ -49,6 +49,7 @@ pond.addEventListener('FilePond:removefile', (e) => {
 FilePond.setOptions({
     maxFileSize: '20MB',
     labelMaxFileSize: 'The maximum file size is {filesize}',
+    labelIdle: 'Перенеси свои файлы или <span class="filepond--label-action"> Найди </span>'
 })
 
 FilePond.create(

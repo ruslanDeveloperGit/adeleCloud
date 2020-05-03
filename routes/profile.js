@@ -34,6 +34,16 @@ router.get('/friends', verifyToken, async (req, res) => {
     }
 })
 
+router.get('/getFriends', verifyToken, async(req, res) => {
+    if ( res.locals.ejected ) return
+    const { profileId } = req.query;
+    const { friends } = await User.findOne({ profileId });
+    
+    res.send({
+        friends,
+    })
+})
+
 router.post('/sendRequest/:profileId',verifyToken , async (req, res) => {
     if ( res.locals.ejected ) return 
     let { accessToken } = req.signedCookies;
@@ -70,7 +80,7 @@ router.post('/acceptRequest/:profileId', verifyToken, async  (req, res ) => {
         return request.profileId !== requestedUserId
     })
     duringUser.friends.push({
-        name: requestedUser.name,
+        name: requestedUser.userName,
         profileId: requestedUser.profileId
     })
     // then updating requested user profile by deleting sent request and adding during user to friends
@@ -78,7 +88,7 @@ router.post('/acceptRequest/:profileId', verifyToken, async  (req, res ) => {
        return  request.profileId !== duringUserId
     })
     requestedUser.friends.push({
-        name: duringUser.name,
+        name: duringUser.userName,
         profileId: duringUser.profileId
     })
 
