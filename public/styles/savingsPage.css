@@ -25,7 +25,7 @@
 }
 .saving:hover{
     opacity: 1;
-    margin-top: 17px;
+    /* margin-top: 17px; */
     margin-left: -5px;
     box-shadow: rgb(170, 170, 170) 1.8px 1.8px;
 }
@@ -168,20 +168,7 @@
     }
     
 }
-@media screen and (min-width: 1700px) and (min-height: 1200px) { 
-    .create-new-button {
-        background-color: rgb(248, 109, 54);
-        background-image: url('../icons/add-icon-256.png');
-        background-repeat: no-repeat;
-        background-position: center;
-        height: 200px;
-        width: 200px;
-        border-radius: 50%;
-        position: fixed;
-        bottom: 25px;
-        right: 25px;
-    }
-  } 
+
 .create-new-button {
     background-color: rgb(248, 109, 54);
     background-image: url('../icons/add-icon-128.png');

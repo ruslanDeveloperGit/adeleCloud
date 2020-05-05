@@ -2,8 +2,6 @@ extends /layouts/mainLayout
 
 block content
     div(class='wrapper')
-       
-        a(class='create-new-button' href='/savings/new')
         div(class='d-flex justify-content-between')
             div(class='d-flex')
                 div(class='profileLink profile') Go to profile
@@ -50,4 +48,6 @@ block content
                                     else
                                         div(class='firstFileName') #{saving.files[1].docName}
                                     div(class='firstFileSize') #{(saving.files[1].docSize / Math.pow(10, 6)).toFixed(3)} MB
+        a(class='create-new-button' href='/savings/new')
+
     script(src='/javascripts/savingsScript.js' defer)

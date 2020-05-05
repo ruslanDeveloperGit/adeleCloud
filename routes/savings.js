@@ -19,11 +19,11 @@ router.get('/', verifyToken, async (req, res, next) => {
     try{
         let { accessToken } = req.signedCookies;
         let { id } = jwt.decode(accessToken)
-        let userSavings = await Saving.find({ owner: { profileId : id} });
+        let userSavings = await Saving.find({ "owner.profileId": id });
         let currentUser = await User.findOne({ profileId: id });
-
+        console.log(id)
         res.render('savings/index', {
-            savings: userSavings,
+            savings: userSavings.reverse(),
             user: currentUser
         })
     } catch (e) {
