@@ -5,7 +5,7 @@ body{
 
 }
 .navbar {
-
+  height: 10%;
   background-color: rgb(46, 78, 255);
 }
 
@@ -237,14 +237,7 @@ body{
   color: rgb(50, 182, 50);
 
 }
-#ui-id-1 {
-  border-radius: 10px;
-  outline: none;
-}
 
-.ui-helper-hidden-accessible{
-  border-radius: 10px;
-}  
 
 
 .stretched-link {

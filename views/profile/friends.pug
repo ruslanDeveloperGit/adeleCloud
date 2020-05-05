@@ -2,15 +2,33 @@ extends /layouts/mainLayout
 
 block content 
     div(class='friendsList') 
-        if receivedRequests.length > 0 
-            div(class='friendsColumn')
-                for friend in friends 
-                    div(class='friendRow')
-                        a(class='streched-link friendName' href=`/profile/${friend.profileId}`) #{friend.name}
-            div(class='requestsColumn')
-                each request in receivedRequests 
-                    a(class='streched-link requestName' href=`/profile/${request.profileId}`) Request from #{request.from}
-        else
-            each friend in friends 
-                div(class='friendRow')
-                    a(class='streched-link friendName' href=`/profile/${friend.profileId}`) #{friend.name}
+        div(class='friends-section')
+            if receivedRequests.length == 0
+                div(class='list-name') Друзья
+                div(class='empty-requests') У вас пока еще нет друзей
+            else 
+                div(class='list-name') Друзья
+                div(class='list-info')
+                    each friend in friends 
+                        a(class='list-row stretched-link' href=`/profile/${friend.profileId}`) #{friend.name}
+
+        div(class='friends-section') 
+            if receivedRequests.length == 0
+                div(class='list-name') Входящие запросы
+                div(class='empty-requests') Нет входящих запросов
+
+            else
+                div(class='list-name new-info') Отправленные запросы
+                div(class='list-info')
+                    each received in receivedRequests
+                        a(class='stretched-link list-row' href=`/profile/${received.profileId}`) #{received.from}
+        div(class='friends-section')
+            if sentRequests.length == 0
+                div(class='list-name') Отправленные запросы
+                div(class='empty-requests') Нет исходящих запросов
+
+            else
+                div(class='list-name new-info') Отправленные запросы
+                div(class='list-info')
+                    each sent in sentRequests
+                        a(class=' stretched-link list-row' href=`/profile/${sent.profileId}`) #{sent.to}

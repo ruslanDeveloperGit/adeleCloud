@@ -1,6 +1,5 @@
 
 jQuery(document).ready($ => {
-    const toNewButton = $('.create-new-button')
     const appName = $('.brand')
     const globalSearchInput = $('#globalSearch')
     const searchResultsBox = $('#searchResults')
@@ -22,10 +21,6 @@ jQuery(document).ready($ => {
         searchResultsBox.width(globalSearchInput.width())
         searchResultsBox.offset({ top : globalSearchOffsetTop + 10, left: globalSearchOffsetLeft})
     }
-
-    toNewButton.on('click', () => {
-        window.location.href = '/savings/new'
-    })
 
     appName.on('click', () => {
         window.location.href = '/savings/'

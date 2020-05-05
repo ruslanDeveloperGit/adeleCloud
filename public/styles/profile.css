@@ -152,3 +152,63 @@
 .scrollable::-webkit-scrollbar {
     display: none;
 }
+
+.friendsList {
+    height: 88%;
+    display: flex;
+}
+
+.friends-column {
+    display: flex;
+    width: 30%;
+    flex-grow: 1;
+}
+
+
+.friends-section {
+    overflow-y: scroll;
+    border-right: 1px solid rgb(184, 184, 184);
+    width: 100%;
+}
+.friends-section::-webkit-scrollbar {
+    display: none;
+}
+.list-name {
+    margin: auto;
+    width: 90%;
+    margin-top: 10px;
+    text-align: center;
+    font-size: x-large;
+    color: skyblue;
+    margin-bottom: 25px;
+}
+
+.list-name.new-info {
+    color: lightsalmon
+}
+
+.empty-requests {
+    margin-top: 25px;
+    color: lightgray;
+    font-size: 23px;
+    text-align: center;
+}
+
+.list-row {
+    display: block;
+    color: black;
+    position: relative;
+    cursor: pointer;
+    width: 80%;
+    height: 50px;
+    border: 1px solid lightgray;
+    margin: auto;
+    border-radius: 10px;
+    font-size: x-large;
+    line-height: 50px;
+    text-align: center;
+}
+
+.list-row:hover {
+    background-color: rgb(231, 230, 230);
+}

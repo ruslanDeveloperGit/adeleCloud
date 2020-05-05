@@ -24,10 +24,11 @@ router.get('/friends', verifyToken, async (req, res) => {
     if ( res.locals.ejected ) return
     try {
         let { id } = await jwt.decode(req.signedCookies.accessToken) 
-        const { friends, receivedRequests } = await User.findOne({ profileId: id }) // find user friends and requests to display
+        const { friends, receivedRequests, sentRequests } = await User.findOne({ profileId: id }) // find user friends and requests to display
         res.render('profile/friends', {
             friends,
-            receivedRequests
+            receivedRequests,
+            sentRequests,
         })
     } catch (e) {
         console.log(e)
