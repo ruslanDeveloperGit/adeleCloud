@@ -412,6 +412,7 @@ body{
 
 .show-choosed-btn {
   display: none;
+  font-size: small;
 }
 .choosed-buttons-wrapper {
   width: 100%;
