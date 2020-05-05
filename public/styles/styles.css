@@ -343,11 +343,14 @@ body{
 
 .action-buttons-container {
   display: flex;
+  position: relative;
+  vertical-align: middle;
+  align-items: center;
   border-top: 1px solid lightgrey;
   justify-content: center;
   min-height: 50px;
   max-height: 100px;
-  padding-top: 5px;
+  padding-top: 20px;
   margin-bottom: 5px;
 }
 .action-buttons-container > .btn-danger {
@@ -355,6 +358,7 @@ body{
   margin-bottom: 10px;
 }
 .action-buttons-container > .btn {
+  display: inline-block;
   margin-bottom: 10px;
 }
 
