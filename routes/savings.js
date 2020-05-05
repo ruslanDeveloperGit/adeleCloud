@@ -18,9 +18,9 @@ router.get('/', verifyToken, async (req, res, next) => {
     }
     try{
         let { accessToken } = req.signedCookies;
-        let { email } = jwt.decode(accessToken)
-        let userSavings = await Saving.find({ owner: email });
-        let currentUser = await User.findOne({ email });
+        let { id } = jwt.decode(accessToken)
+        let userSavings = await Saving.find({ owner: { profileId : id} });
+        let currentUser = await User.findOne({ profileId: id });
 
         res.render('savings/index', {
             savings: userSavings,
@@ -49,6 +49,7 @@ router.get('/:id/', async ( req, res ) => {
 
     let savingId = req.params.id
     let email;
+    const { id } = jwt.decode(req.signedCookies.accessToken)
 
 
     if (!savingId.startsWith('save_')) {
@@ -74,7 +75,7 @@ router.get('/:id/', async ( req, res ) => {
             return user.profileId == accessingUser.profileId
         })
        
-        if (!isInvolved && email !== saving.owner ) {  
+        if (!isInvolved && id !== saving.owner.profileId ) {  
             return res.send('This is a private saving and you don\'t have access to it')
         }
     }
@@ -89,7 +90,7 @@ router.get('/:id/', async ( req, res ) => {
             }
             saving.files[i].docData = documentData
     }
-    let { userName} = await User.findOne({ email: saving.owner})
+    let { userName } = await User.findOne({ profileId: saving.owner.profileId})
     let ownerName = userName
     
     if ( email == saving.owner ) ownerName = 'You'
@@ -139,8 +140,8 @@ router.post('/', verifyToken, async (req, res, next) => {
     
    
     // updating user obeject
-    let { email } =  jwt.decode(req.signedCookies.accessToken);
-    let currentUser  = await User.findOne({ email })
+    let { id } =  jwt.decode(req.signedCookies.accessToken);
+    let currentUser  = await User.findOne({ profileId: id  })
     let filesTotalSize = 0
     currentUser.totalSavings += 1
     if ( isPrivate ) {
@@ -171,7 +172,10 @@ router.post('/', verifyToken, async (req, res, next) => {
         involved,
         stringCreateDate: todayString,
         filesAmount: savingDocuments.length,
-        owner: email,
+        owner: {
+            name: currentUser.userName,
+            profileId: id
+        },
         private: isPrivate || false,
         files: savingDocuments
 

@@ -29,9 +29,8 @@ const SavingSchema = new Schema({
         required: true, 
     },
     owner: {
-        required: true,
-        type: String,
-        required: true,
+        name: String, 
+        profileId: String
     },
     filesTotalSize: {
         type: Number,

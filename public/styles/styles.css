@@ -5,6 +5,7 @@ body{
 
 }
 .navbar {
+
   background-color: rgb(46, 78, 255);
 }
 
@@ -420,6 +421,140 @@ body{
 
 .choosed-buttons-wrapper {
   max-height: 35px;
-  width: 350px;
+  min-width: 200px;
   margin-bottom: 10px;
+}
+
+.search-results {
+  overflow-y: scroll;
+  display: none;
+  min-width: 200px;
+  background-color: rgb(240, 249, 255);
+  position: absolute;
+  border-radius: 10px;
+  min-height: 200px;
+  max-height: 200px;
+}
+.search-results::-webkit-scrollbar {
+  display: none;
+}
+.search-result-row {
+  user-select: none;
+  cursor: pointer;
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid lightgray;
+}
+.search-result-row:hover {
+  background-color: rgb(230, 230, 230);
+}
+.search-result-row:first-child {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.result-profile {
+  padding-top: 5px;
+  padding-left: 10px
+}
+.search-result-user-name {
+  font-size: 18px;
+  line-height: 20px;
+}
+.search-result-profile-id {
+  font-size: small;
+  color: rgb(179, 179, 179);
+}
+
+.result-saving {
+  padding-top: 10px;
+  padding-left: 10px;
+  height: 80px;
+}
+
+.search-result-saving-name {
+  font-size: x-large;
+}
+
+.search-result-owner-name {
+  font-size: 18px;
+  color: rgb(179, 179, 179);
+}
+.empty-result {
+  margin: auto;
+  margin-top: 15px;
+  text-align: center;
+  width: 90%;
+  font-size: 17px;
+  color: lightgray
+}
+
+.search-params {
+  max-height: 20%;
+  min-height: 120px;
+  border-bottom: 1px solid lightgray;
+
+}
+
+.search-param-query {
+  font-size: xx-large;
+  margin: 10px;
+  margin-left: 20px;
+}
+
+.search-again-form {
+ margin-left: 20px;
+}
+
+.search-again-input {
+  height: 40px;
+  font-size: x-large;
+  width: 202px;
+  padding: 5px;
+  margin-right: 10px;
+  border-radius: 15px;
+  outline: none;
+  border: 1px solid lightgray;
+}
+
+.search-detailed-results {
+  width: 90%;
+  margin: auto;  
+  margin-top: 20px
+}
+
+.search-result-link {
+  text-decoration: none;
+  color: black;
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 80px;
+  border: 1px solid lightgray;
+  border-radius: 18px;
+  margin-bottom: 10px
+}
+.search-result-link:hover{
+  background-color: rgb(236, 236, 236);
+  text-decoration: none;
+  color: black;
+}
+.search-result-link.user {
+  height: 80px;
+
+}
+
+.search-result-name {
+  font-size: xx-large;
+  line-height: 30px;
+  padding: 5px 20px;
+  padding-top: 15px;
+}
+.search-result-id,
+.search-result-owner-name-detailed {
+  font-size: small;
+  color: rgb(168, 168, 168);
+  padding-left: 20px;
+}
+.search-result-owner-name-detailed {
+  font-size: 16px;
 }

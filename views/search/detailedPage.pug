@@ -1,0 +1,21 @@
+extends /layouts/mainLayout
+
+block content 
+    div(class='search-params')
+        div(class='search-param-query') Результат поиска: #{findString}
+        form(method='GET' class='search-again-form' action='/search/getDetailedPage')
+            input(class='search-again-input' name='findString' placeholder='Искать заново')
+            button(type='submit' class='btn btn-primary' style='margin-top: -10px') Искать
+    div(class='search-detailed-results')
+        if capturedData.length < 1
+            div(class='') Ничего не найдено
+        else 
+            each result in capturedData
+                if result.userName
+                    a(class='search-result-link user' href=`/profile/${result.profileId}`)
+                        div(class='search-result-name') Пользователь: #{result.userName}
+                        div(class='search-result-id') #{result.profileId}
+                else 
+                    a(class='search-result-link' href=`/savings/${result.savingId}`)
+                        div(class='search-result-name') Запись: #{result.name}
+                        div(class='search-result-owner-name-detailed') #{result.owner.name}

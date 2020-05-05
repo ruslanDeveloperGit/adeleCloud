@@ -15,6 +15,7 @@ const session = require('express-session')
 const savingsRouter = require('./routes/savings');
 const authRouter = require('./routes/auth')
 const profilesRouter = require('./routes/profile')
+const apiRouter = require('./routes/api')
 
 // app setup
 // puclic setup
@@ -44,6 +45,7 @@ db.once('connected', () => console.log('MongoDB connected to the server...'))
 app.get('/', (req, res) => {
     res.redirect('/savings')
 })
+app.use('/search/', apiRouter)
 app.use('/auth/', authRouter)
 app.use('/profile/', profilesRouter)
 app.use('/savings/', savingsRouter);
