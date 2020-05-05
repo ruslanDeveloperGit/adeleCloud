@@ -168,7 +168,7 @@
     }
     
 }
-@media screen and (min-width: 1700px) { 
+@media screen and (min-width: 1700px) and (min-height: 1200px) { 
     .create-new-button {
         background-color: rgb(248, 109, 54);
         background-image: url('../icons/add-icon-256.png');
