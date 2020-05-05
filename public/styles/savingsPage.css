@@ -170,7 +170,7 @@
 }
 
 .create-new-button {
-    background-color: rgb(248, 109, 54);
+    background-color: rgb(54, 122, 248);
     background-image: url('../icons/add-icon-128.png');
     background-repeat: no-repeat;
     background-position: center;
@@ -180,4 +180,9 @@
     position: fixed;
     bottom: 25px;
     right: 25px;
+}
+
+.create-new-button:hover {
+    background-color: rgb(34, 90, 194);
+
 }
