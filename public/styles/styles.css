@@ -273,7 +273,7 @@ body{
   border-bottom: 1px solid lightgray;
 }
 .modal-label {
-  padding-left: 15px;
+  padding-left: 35px;
   padding-top: 10px;
   color: lightskyblue;
   font-size: 30px ;
@@ -344,10 +344,9 @@ body{
   border-top: 1px solid lightgrey;
   justify-content: center;
   min-height: 50px;
+  max-height: 100px;
   padding-top: 5px;
   margin-bottom: 5px;
-  /* align-content: center;
-  align-self:  center; */
 }
 .action-buttons-container > .btn-danger {
   margin-right: 10px;
