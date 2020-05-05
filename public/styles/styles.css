@@ -259,7 +259,9 @@ body{
   min-width: 300px;
   min-height: 300px;
   width: 40%;
-  height: 300px;
+  height: 400px;
+  max-height: 400px;
+
   background-color: white;
   position: absolute;
   left: 50%;
