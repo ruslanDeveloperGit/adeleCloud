@@ -21,7 +21,6 @@ router.get('/', verifyToken, async (req, res, next) => {
         let { id } = jwt.decode(accessToken)
         let userSavings = await Saving.find({ "owner.profileId": id });
         let currentUser = await User.findOne({ profileId: id });
-        console.log(id)
         res.render('savings/index', {
             savings: userSavings.reverse(),
             user: currentUser
