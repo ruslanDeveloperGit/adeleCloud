@@ -1,0 +1,33 @@
+extends /layouts/mainLayout
+
+block content 
+    div(class='savingWrapper')
+        div(class='savingInfoBar')
+            div(class='primaryInfo')
+                div(class='name') 
+                    input( class='edit-name' id='newName' placeholder=`${savingInfo.name}`) 
+            div(class='btn-action-control-container')
+                a(href=`/savings/${savingInfo.savingId}`) 
+                    div(class='btn-action-control cancel-edit')
+                div(class='btn-action-control save-changes' id='saveChanges')
+                
+               
+        div(class='savingFiles')
+            each file in savingInfo.files.reverse()
+                if file.isImage
+                    div(class='fileLink')
+                        img(class='previewImage' src=`${file.docData}`)
+                        div(class='fileName') #{file.docName}
+                        div(class='docSize') #{file.docSize}
+                        div(class='btn-action-control-container')
+                            div(class='btn-action-control delete-saving' data-id=`${file.docId}`  data-file-name=`${file.docName}` )
+                else
+                    div(class='fileLink')
+                        div(class='fileName') #{file.docName}
+                        div(class='docSize') #{file.docSize}
+                        div(class='btn-action-control-container')
+                            div(class='btn-action-control delete-saving' data-file-name=`${file.docName}` data-id=`${file.docId}` )
+
+    script(src="/javascripts/edit.js" type='module' defer)
+    script.
+        const savingId = '#{savingInfo.savingId}'

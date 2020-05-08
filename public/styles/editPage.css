@@ -1,0 +1,29 @@
+.name > .edit-name {
+    min-height: 50px;
+    height:  90%;
+    max-height: 60px;
+    width: 300px;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    outline: none;
+    padding-left: 10px;
+    align-self: center;
+}
+
+.name > .edit-name:focus {
+    border:2px solid rgb(134, 42, 209);
+}
+
+
+.save-changes {
+    background-image: url('../icons/save.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.cancel-edit {
+    background-image: url('../icons/cancel.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgb(255, 51, 51);
+
+}

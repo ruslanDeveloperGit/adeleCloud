@@ -16,6 +16,10 @@ const FileSchema = new Schema({
     docData: {
         type: Buffer,
         required: true
+    },
+    docId: {
+        type: String,
+        required: true,
     }
 })
 

@@ -2,19 +2,24 @@ body{
   min-height: 600px !important;
   height: 100vh;
   min-width: 1000px !important; 
+  /* background-color: rgb(46, 46, 46); */
 
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 .navbar {
   height: 10%;
-  background-color: rgb(46, 78, 255);
+  /* background-color: rgb(56, 56, 56); */
+  background-color: rgb(101, 39, 182);
+
 }
 
 .search-input{
   max-width: 200px;
 }
-.create-new-button {
-    margin-left: 10px;
-}
+
 
 .form-inline {
     float: right;
@@ -26,6 +31,13 @@ body{
   cursor: pointer;
   font-size: xx-large;
   width: 0px;
+}
+.brand {
+  color: white;
+
+}
+.brand:hover {
+  color: lightgray 
 }
 .wrapper {
   height: 70%;
@@ -46,9 +58,10 @@ body{
   position: absolute;
   height: 100%;
   border-radius: 15px;
+  min-width: 1100px;
   padding: 20px;
   display: flex;
-  background-color: rgb(221, 217, 217);
+  background-color: rgb(219, 218, 218);
   width: 100%;
 }
 
@@ -59,7 +72,7 @@ body{
 }
 
 .form-label {
-    color: rgb(48, 206, 48);
+    color: rgb(116, 48, 206);
     text-align: center;
     line-height: 30px;
     padding-bottom: 10px;
@@ -255,7 +268,9 @@ body{
   margin-left: 10px
 }
 
-.choose-friends-modal {
+.choose-friends-modal,
+.confirm-edition-modal,
+.confirm-deletion-modal {
   display: none;
   border-radius: 35px;
   min-width: 300px;
@@ -263,24 +278,39 @@ body{
   width: 40%;
   height: 400px;
   max-height: 400px;
-
-  background-color: white;
-  position: absolute;
+  background-color: rgb(255, 255, 255);
+  
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid rgb(161, 161, 161);
+  border: 1px solid rgb(105, 105, 105);
 }
+.small-modal {
+  height: 250px;
+  min-height: 200px;
+  width: 30%;
+  min-width: 250px;
+}
+
+.small-modal > .modal-info-bar {
+  height: 25%;
+}
+.small-modal > .modal-info-bar > .modal-label {
+  line-height: 63px;
+}
+
 .modal-info-bar {
   display: flex; 
   height: 20%;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid rgb(105, 105, 105);
 }
 .modal-label {
   padding-left: 35px;
   /* padding-top: 10px; */
   line-height: 80px;
-  color: lightskyblue;
+  color: rgb(116, 48, 206);
+
   font-size: 30px ;
 }
 .btn-close-modal {
@@ -298,6 +328,13 @@ body{
   filter: blur(2px);
   -webkit-filter: blur(2px);
   cursor: pointer;
+  pointer-events: none;
+}
+.blured > .file-link {
+  pointer-events: none;
+}
+.blured.savingContainer  > a{
+  pointer-events: none;
 }
 
 .blured > .create-new-saving-container {
@@ -308,12 +345,15 @@ body{
   width: 90%;
   height: 50px;
   margin: auto;
-  border: 1px solid rgb(204, 204, 204); 
+  border: 1px solid rgb(158, 158, 158); 
   border-radius: 10px;
   margin-top: 15px;
 }
 
 .friend-name {
+
+  color: rgb(0, 0, 0);
+
   font-size: 25px;
   text-align: center; line-height: 50px;
   padding-left: 10px
@@ -349,7 +389,7 @@ body{
   position: relative;
   vertical-align: middle;
   align-items: center;
-  border-top: 1px solid lightgrey;
+  border-top: 1px solid rgb(109, 109, 109);
   justify-content: center;
   min-height: 50px;
   max-height: 100px;

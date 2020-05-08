@@ -26,8 +26,8 @@ app.locals.basedir = path.join(__dirname, 'views')
 app.use(express.static(path.join(__dirname + '/public')))
 
 // data usage setup
-app.use(bodyParser.json({limit: '20mb', extended: true}))
-app.use(bodyParser.urlencoded({limit: '20mb', extended: true}))
+app.use(bodyParser.json({limit: '30mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '30mb', extended: true}))
 app.use(cookieParser(process.env.COOKIE_SECRET))
 
 

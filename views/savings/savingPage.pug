@@ -5,7 +5,6 @@ block content
         div(class='savingInfoBar')
             div(class='primaryInfo')
                 div(class='name') #{savingInfo.name}
-                div(class='privateSign')
                 span(class='involvedUsers')
                     if savingInfo.private
                         if savingInfo.involved.length !== 0
@@ -13,31 +12,54 @@ block content
                             each user, index in savingInfo.involved
 
                                 if index == 3 && savingInfo.involved.lenght > 3
-                                    | and #{savingInfo.involved.length - 3} more users have access to this saving
+                                    | и еще #{savingInfo.involved.length - 3} человека могут видеть это
                                     - break
                                 else if index == savingInfo.involved.length - 1
-                                    | #{user.name} have access to this saving
+                                    | #{user.name} имеют доступ к сохранению
                                     - break
                                 
                                 |   #{user.name}, 
                         else 
-                            | Only 
-                            b You 
-                            | can see this saving 
+                            | Только 
+                            b Вы 
+                            | можете видеть это сохранение
                     else 
-                        | Everyone can see this saving
-
-            div(class='dataInfo')
-                div(class='date') #{savingInfo.stringCreateDate}
-                    span(class='savingSize') #{(savingInfo.filesTotalSize / Math.pow(10, 6)).toFixed(2)} MB
+                        | Это публичное сохранение
+            div(class='btn-action-control-container')
+                div(class='btn-action-control saving-info' id='infoButton')
+                if isOwner
+                    a(href=`/savings/${savingInfo.savingId}/edit/`)
+                        div(class='btn-action-control edit-saving')
+                    div(class='btn-action-control delete-saving' id='deleteSaving')
+               
         div(class='savingFiles')
-            each file in savingInfo.files
+            each file in savingInfo.files.reverse()
                 if file.isImage
-                    a(class='fileLink stretched-link' download=`${file.docName}` href=`${file.docData}`)
+                    a(class='fileLink' download=`${file.docName}` href=`${file.docData}`)
                         img(class='previewImage' src=`${file.docData}`)
                         div(class='fileName') #{file.docName}
-                        div(class='docSize') #{(file.docSize / Math.pow(10, 6)).toFixed(2)} MB
+                        div(class='docSize') #{file.docSize}
                 else
                     a(class='fileLink stretched-link' download=`${file.docName}` href=`${file.docData}`)
                         div(class='fileName') #{file.docName}
-                        div(class='docSize') #{(file.docSize / Math.pow(10, 6)).toFixed(2)} MB
+                        div(class='docSize') #{file.docSize}
+    div(class='saving-info-pop-up' id='savingInfo')
+        div(class='saving-info-row') Создано: #{savingInfo.stringCreateDate}
+        div(class='saving-info-row') Размер: #{savingInfo.filesTotalSize}
+        div(class='saving-info-row') Автор: #{savingInfo.owner.name}
+    div(class='confirm-deletion-modal small-modal' disabled)
+        div(class='modal-info-bar')
+            div(class='modal-label') Подтвердите
+            div(class='btn btn-danger btn-close-modal' id='closeModal')
+        .deletion-warning 
+            | Вы собираетесь удалить запись 
+            span.name-to-delete #{savingInfo.name} 
+            | и все находящиеся в ней файлы( 
+            span.file-amount #{savingInfo.files.length} 
+            |)
+        .action-buttons-container
+            div(class='btn btn-danger' id='cancelBtn') Отменить
+            div(class='btn btn-success' id='continueBtn') Продолжить
+    script( defer src="/javascripts/savingPage.js")
+    script.
+        const savingId = '#{savingInfo.savingId}'

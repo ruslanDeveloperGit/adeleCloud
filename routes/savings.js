@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router();
 const jwt = require('jsonwebtoken')
 const uniqid = require('uniqid')
+const { AES, enc } = require('crypto-js')
 
 const imageTypes = ['image/png', 'image/jpeg', 'image/jpg']
 // db model
@@ -11,16 +12,45 @@ const User = require('../models/UserModel')
 
 const { verifyToken } = require('../helpers/tokenVerify')
 
+function convertSize(bytes) {
+    let size = bytes / 1000
+    if( size > 1000 ) size = Math.round(size / 1000) + 'MB'
+    else size = Math.round(size) +  'KB'
+    return  size
+}
+
 // all user savings 
 router.get('/', verifyToken, async (req, res, next) => {
     if(res.locals.ejected){ // local for check if user ejected
         return
     }
     try{
-        let { accessToken } = req.signedCookies;
-        let { id } = jwt.decode(accessToken)
-        let userSavings = await Saving.find({ "owner.profileId": id });
+        const { accessToken } = req.signedCookies;
+        const { id } = jwt.decode(accessToken)
+
+        let   userSavings = await Saving.find({ "owner.profileId": id });
         let currentUser = await User.findOne({ profileId: id });
+
+        const totalUserFilesSize  = convertSize(currentUser.totalDocumentsSize)
+        currentUser = currentUser.toObject()
+        currentUser['totalDocumentsSize'] = totalUserFilesSize
+
+        for ( let i = 0; i < userSavings.length; i++ ) {
+            const totalSavingSize = convertSize(userSavings[i].filesTotalSize)
+            userSavings[i] = userSavings[i].toObject()
+            userSavings[i]['filesTotalSize'] = totalSavingSize
+
+            if ( userSavings[i].name.length > 35) userSavings[i].name = userSavings[i].name.slice(0, 35) + '...'
+
+            for ( let j = 0; j < userSavings[i].files.length; j++) {
+                if ( i > 2) break;
+
+                if (userSavings[i].files[j].docName.length > 30) userSavings[i].files[j].docName = userSavings[i].files[j].docName.slice(0, 30) + '...' 
+                const totalDocumentSize = convertSize(userSavings[i].files[j].docSize)
+                userSavings[i].files[j].docData = null
+                userSavings[i].files[j]['docSize'] = totalDocumentSize
+            }
+        }
         res.render('savings/index', {
             savings: userSavings.reverse(),
             user: currentUser
@@ -42,6 +72,78 @@ router.get('/new', verifyToken, async (req, res, next) => {
     res.render('savings/new', {
         id,
     })
+})
+
+router.post('/edit', async ( req, res ) => {
+    const { savingId, newName, filesToDelete } = req.body;
+    const { id } = jwt.decode(req.signedCookies.accessToken)
+
+
+    let saving = await Saving.findOne({ savingId }); // getting files in update saving
+    let editingUser = await User.findOne({ profileId: id })
+    const needsToDelete = filesToDelete.length == saving.filesAmount
+    editingUser.totalDocumentsSize -= saving.filesTotalSize // decreasing by during state of size
+
+    saving.filesTotalSize = 0
+    let newFilesTotalSize = 0;
+    for ( let i = 0; i < filesToDelete.length; i++ ) {
+        saving.files = saving.files.filter(file => {
+            return file.docId != filesToDelete[i].id 
+        })
+    }
+    saving.files.forEach(file => {
+        newFilesTotalSize += file.docSize
+    });
+    saving.filesAmount = saving.files.length; 
+    saving.filesTotalSize = newFilesTotalSize;
+    if ( newName ) saving.name = newName
+
+    editingUser.totalDocumentsSize += saving.filesTotalSize // after updating adding new size
+
+    if ( needsToDelete ) {
+        await Saving.findOneAndDelete({ savingId })
+        for ( let i = 0; i < saving.involved.length; i++) {
+            User.findOne({ profileId: saving.involved[i].profileId}, async (err, user ) => {
+                user.savingsInvolved = user.savingsInvolved.filter((userSavings) =>{
+                    return userSavings.savingId != saving.savingId
+                })
+                await user.save();
+
+            })
+        }
+    } else {
+        await saving.save()
+    }
+
+    await editingUser.save()
+    if ( needsToDelete ) return res.sendStatus(404)
+    res.sendStatus(200)
+})
+
+
+router.post('/delete', async (req, res) => {
+    const { savingId } = req.body;
+
+    const savingToDelete = await Saving.findOne({ savingId });
+    const deletingUser = await User.findOne({ profileId: savingToDelete.owner.profileId });
+
+
+    deletingUser.totalSavings -= 1
+    if ( savingToDelete.private ) deletingUser.privateSavings -= 1
+    else deletingUser.publicSavings -= 1
+    deletingUser.totalDocumentsSize -= savingToDelete.filesTotalSize
+    await Saving.findOneAndDelete({ _id: savingToDelete._id})
+    for ( let i = 0; i < savingToDelete.involved.length; i++) {
+        User.findOne({ profileId: savingToDelete.involved[i].profileId}, async (err, user ) => {
+            user.savingsInvolved = user.savingsInvolved.filter((userSavings) =>{
+                return userSavings.savingId != savingToDelete.savingId
+            })
+            await user.save()
+        });
+    }
+    await  deletingUser.save()
+    res.sendStatus(200)
+
 })
 
 router.get('/:id/', async ( req, res ) => {
@@ -79,33 +181,76 @@ router.get('/:id/', async ( req, res ) => {
         }
     }
     saving = saving.toObject()
+    saving.filesTotalSize = convertSize(saving.filesTotalSize)
     for (let i = 0; i < saving.files.length; i++) {
-            let documentData = saving.files[i].docData;
-            documentData = documentData.toString('base64')
-               
+            let documentData = saving.files[i].docData
+            documentData = documentData.toString('base64')   
+
             documentData = `data:${saving.files[i].docType};base64,${documentData}`
             if (imageTypes.includes(saving.files[i].docType)) {
                 saving.files[i]['isImage'] = true
             }
             saving.files[i].docData = documentData
+            saving.files[i].docSize = convertSize(saving.files[i].docSize)
     }
-    let { userName } = await User.findOne({ profileId: saving.owner.profileId})
-    let ownerName = userName
+    let ownerUser = await User.findOne({ profileId: saving.owner.profileId})
+    const  ownerName = ownerUser.userName
+    const isOwner =  ownerUser.profileId == id
     
     if ( email == saving.owner ) ownerName = 'You'
         res.render('savings/savingPage', {
             savingInfo: saving,
             ownerName,
+            isOwner
             
         })
 })
        
+router.get('/:id/edit', async (req, res) => {
+    if(res.locals.ejected) return
+    try {
+        let savingId = req.params.id
+        const { id } = jwt.decode(req.signedCookies.accessToken)
 
 
+        if (!savingId.startsWith('save_')) {
+            return res.send('Invalid id of saving')
+        }
+        let saving = await Saving.findOne({ savingId }) 
+        if ( !saving ) {
+            return res.send('Saving not found')
+        }
+        if (saving.owner.profileId != id) {
+            return res.send("You can't edit this saving")
+        }
+        saving = saving.toObject()
+        for (let i = 0; i < saving.files.length; i++) {
+                let documentData;
+                if (imageTypes.includes(saving.files[i].docType)) {
+                    documentData = saving.files[i].docData.toString('base64') 
+                
+                    documentData = `data:${saving.files[i].docType};base64,${documentData}`
+                    saving.files[i]['isImage'] = true
+                } else {
+                    documentData = null;
+                }
+                saving.files[i].docData = documentData
+                saving.files[i].docSize = convertSize(saving.files[i].docSize)
+
+        }
+
+        res.render('savings/edit', {
+            savingInfo: saving,
+            ownerName: saving.owner.name
+        })
+    } catch (e) {
+        console.log(e)
+    }
+})
   
    
     // updating user obeject
-router.post('/', verifyToken, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     if(res.locals.ejected){ // local for check if user ejected
         return
     }
@@ -157,7 +302,8 @@ router.post('/', verifyToken, async (req, res, next) => {
             docName: files[i].name,
             docType: files[i].type,
             docSize: files[i].size,
-            docData:  new Buffer.from(files[i].data, 'base64')
+            docData:  new Buffer.from(files[i].data, 'base64'),
+            docId: uniqid('doc_')
         }
         savingDocuments.push(new File({...encodedFile}))
     }
@@ -179,8 +325,11 @@ router.post('/', verifyToken, async (req, res, next) => {
         files: savingDocuments
 
     });
-    await currentUser.save()
+    if (currentUser.totalDocumentsSize > 50 * 1000 * 1000) {
+        return res.send("После сохранения не будет места")
+    }
     await saving.save();
+    await currentUser.save()
     return res.redirect('/savings/' + savingId);
 
 

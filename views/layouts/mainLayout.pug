@@ -13,6 +13,7 @@ html(lang="en")
         link(rel="stylesheet", href="/styles/savingsPage.css")
         link(rel="stylesheet", href="/styles/profile.css")
         link(rel="stylesheet", href="/styles/certainSavingPage.css")
+        link(rel='stylesheet' href='/styles/editPage.css')
         link(rel='stylesheet' href='/styles/styles.css')
 
 
@@ -26,17 +27,16 @@ html(lang="en")
         script(defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js")
         script(src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js" defer)
         script(defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js")
-        //- jquery / jqueryUI scripts
-        script(defer src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous" )
-        script(defer src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous")
+        script(src="https://unpkg.com/axios/dist/axios.min.js")
 
+        script(defer src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous" )
         //- own scripts
         script(src="/javascripts/headerScripts.js" defer)
-        script(src='/javascripts/autoReloader.js' defer)
-        
+        script(src='/javascripts/autoReloader.js' defer)   
       
         title AdeleCloud
     body
         include /partials/header.pug
         block content
         div(class='search-results' id='searchResults')
+    

@@ -4,50 +4,50 @@ block content
     div(class='wrapper')
         div(class='d-flex justify-content-between')
             div(class='d-flex')
-                div(class='profileLink profile') Go to profile
-                div(class='profileLink friends') Friends
-                div(class='profileLink favorites') Favorites
+                div(class='profileLink profile') Профиль
+                if user.receivedRequests.length > 0
+                    div(class='profileLink friends new-event') Друзья
+                else 
+                    div(class='profileLink friends') Друзья
             div(class='usedInfo') 
-                h1 #{(user.totalDocumentsSize / Math.pow(10, 6)).toFixed(2)}MB of 1GB
-                span used
-        div(class='savingsWrapper')
-            each saving in savings
-                div(class='saving')
-                    div(class='additionalInfo')
-                        ul
-                            li(class='infoRow') Created: 
-                                b 3#{saving.stringCreateDate}
-                            li(class='infoRow') Size: 
-                                b #{saving.filesTotalSize}
-                            li(class='infoRow') Files: 
-                                b #{saving.filesAmount}
-                            if saving.private
-                                li(class='infoRow') Private:
-                                    b yes
-                            else 
-                                li(class='infoRow') Private:
-                                    b no
-                    div(class='infoBar d-flex justify-content-between')
-                        div
-                            a(class='savingName' href=`/savings/${saving.savingId}`) #{saving.name}
-                            if saving.private
-                                div(class='privateSign')
-                        div(class='infoButton')
-                    a(class='streched-link' onclick=`document.location.href='/savings/${saving.savingId}'`)
-                        div(class='filesPreview' onclick=`document.location.href='/savings/${saving.savingId}'`)
-                            div(class='firstFilePreview')
-                                if saving.files[0].docName.length > 30
-                                        div(class='firstFileName') #{saving.files[0].docName.slice(0, 23).trim()}...
-                                else
-                                    div(class='firstFileName') #{saving.files[0].docName}
-                                div(class='firstFileSize') #{(saving.files[0].docSize / Math.pow(10, 6)).toFixed(3)} MB
-                            if saving.files.length > 1
+                h1 #{user.totalDocumentsSize} из 50MB
+                span использовано
+        if savings.length < 1
+            div(class='no-savings-message') У вас нет сохранений пока что, но это можно исправить, нажав кнопку в нижнем правом углу или перейдя 
+                a(href='/savings/new') сюда
+        else        
+            div(class='savingsWrapper')
+                each saving in savings
+                    div(class='saving')
+                        div(class='additionalInfo')
+                            ul
+                                li(class='infoRow') Создано: 
+                                    b #{saving.stringCreateDate}
+                                li(class='infoRow') Размер: 
+                                    b #{saving.filesTotalSize}
+                                li(class='infoRow') Файлов: 
+                                    b #{saving.filesAmount}
+                                if saving.private
+                                    li(class='infoRow') Приватное:
+                                        b да
+                                else 
+                                    li(class='infoRow') Приватное:
+                                        b нет
+                        div(class='infoBar d-flex justify-content-between')
+                            div
+                                a(class='savingName' href=`/savings/${saving.savingId}`) #{saving.name}
+                                if saving.private
+                                    div(class='privateSign')
+                            div(class='infoButton')
+                        a(class='streched-link' onclick=`document.location.href='/savings/${saving.savingId}'`)
+                            div(class='filesPreview' onclick=`document.location.href='/savings/${saving.savingId}'`)
                                 div(class='firstFilePreview')
-                                    if saving.files[0].docName.length > 30
-                                        div(class='firstFileName') #{saving.files[1].docName.slice(0, 23).trim()}...
-                                    else
+                                    div(class='firstFileName') #{saving.files[0].docName}
+                                    div(class='firstFileSize') #{saving.files[0].docSize}
+                                if saving.files.length > 1
+                                    div(class='firstFilePreview')
                                         div(class='firstFileName') #{saving.files[1].docName}
-                                    div(class='firstFileSize') #{(saving.files[1].docSize / Math.pow(10, 6)).toFixed(3)} MB
+                                        div(class='firstFileSize') #{saving.files[1].docSize}
         a(class='create-new-button' href='/savings/new')
 
     script(src='/javascripts/savingsScript.js' defer)

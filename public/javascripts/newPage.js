@@ -152,7 +152,6 @@ jQuery(document).ready(function($) {
         }
     })
     function saveChoosed () {
-        console.log(choosedFriends)
         $('.wrapper').removeClass('blured')
         $('.navbar').removeClass('blured')
         chooseFriendsModal.hide(500)

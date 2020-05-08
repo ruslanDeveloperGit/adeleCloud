@@ -3,7 +3,7 @@ extends /layouts/mainLayout
 block content 
     div(class='friendsList') 
         div(class='friends-section')
-            if receivedRequests.length == 0
+            if friends.length == 0
                 div(class='list-name') Друзья
                 div(class='empty-requests') У вас пока еще нет друзей
             else 

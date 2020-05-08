@@ -14,14 +14,13 @@ block content
             div(class='dashboardContainer')
                 div(class='dashboardColumn scrollable') 
                     div(class='columnName') Избранное
-                    if user.favorites.length == 0
-                        div(class='emptyColumnMessage') У вас нет избранных
+                        div(class='emptyColumnMessage') В разработке навсегда...
                 div(class='dashboardColumn')
                     div(class='columnName') Сохранения
                     div(class='columnRow') Всего: #{user.totalSavings}
                     div(class='columnRow') Публичные: #{user.publicSavings}
                     div(class='columnRow') Приватные: #{user.privateSavings}
-                    div(class='columnRow') Использовано #{(user.totalDocumentsSize / Math.pow(10, 6)).toFixed(3)}MB из хзGB
+                    div(class='columnRow') Использовано #{user.totalDocumentsSize }MB из 50MB
                 div(class='dashboardColumn scrollable')
                     div(class='columnName') Есть доступ к
                     if user.savingsInvolved.length == 0

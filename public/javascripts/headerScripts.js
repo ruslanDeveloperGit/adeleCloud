@@ -18,8 +18,10 @@ jQuery(document).ready($ => {
     function replaceResults() {
         const globalSearchOffsetLeft = globalSearchInput.offset().left
         const globalSearchOffsetTop = globalSearchInput.offset().top + globalSearchInput.height()
+        searchResultsBox.show()
         searchResultsBox.width(globalSearchInput.width())
         searchResultsBox.offset({ top : globalSearchOffsetTop + 10, left: globalSearchOffsetLeft})
+        searchResultsBox.hide()
     }
 
     appName.on('click', () => {
